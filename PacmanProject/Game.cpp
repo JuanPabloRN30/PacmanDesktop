@@ -7,11 +7,12 @@
 #include "TextureManager.h"
 #include "res_path.h"
 #include "cleanup.h"
-//#include "Map.h"
+#include "Map.h"
 GameObject* player;
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
+Map* map;
 
 bool Game::isRunning = false;
 
@@ -46,13 +47,13 @@ bool Game::init()
 	}
 
 	const std::string resPath = getResourcePath("PacmanProject");
-	/*try {
+	try {
 		map = new Map(resPath, 10 * 60, 10 * 60);
 	}
 	catch (const char* msg) {
 		TextureManager::LogSDLError(std::cout, "Error");
 		return false;
-	}*/
+	}
 
 	int iW = 60, iH = 60;
 	const std::string pacmanFile = resPath + "pacmanv3.png";
@@ -129,7 +130,7 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	//map->drawMap();
+	map->drawMap();
 	player->render();
 /*	pacman->draw();
 	cyanGhostObj->draw();

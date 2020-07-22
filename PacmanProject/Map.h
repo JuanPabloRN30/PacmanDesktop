@@ -11,14 +11,7 @@ public:
 	void loadMap(int arr[10][10]);
 	void drawMap();
 
-	int getWidth();
-	int getHeight();
-
 private:
-	int xpos;
-	int ypos;
-	int width;
-	int height;
 	SDL_Texture* emptySpace;
 	SDL_Texture* downWall;
 	SDL_Texture* upWall;
