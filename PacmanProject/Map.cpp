@@ -33,11 +33,6 @@ Map::Map(const std::string& resPath, int width, int height)
 		throw "Problem loading texture";
 	}
 
-	xpos = 0;
-	ypos = 0;
-	this->width = width;
-	this->height = height;
-
 	loadMap(lvl1);
 
 	srcRect.x = srcRect.y = 0;
@@ -107,14 +102,4 @@ void Map::drawMap()
 			}
 		}
 	}
-}
-
-int Map::getWidth()
-{
-	return width;
-}
-
-int Map::getHeight()
-{
-	return height;
 }
