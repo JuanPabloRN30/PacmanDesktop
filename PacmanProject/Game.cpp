@@ -3,14 +3,11 @@
 #include<iostream>
 #include <time.h>
 #include "SDL_image.h"
-#include "GameObject.h"
 #include "TextureManager.h"
+#include "Map.h"
+#include "Components.h"
 #include "res_path.h"
 #include "cleanup.h"
-#include "Map.h"
-
-#include "ECS.h"
-#include "Components.h"
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
@@ -19,7 +16,11 @@ Map* map;
 bool Game::isRunning = false;
 
 Manager manager;
-auto& player(manager.addEntity());
+auto& pacman(manager.addEntity());
+auto& cyanGhost(manager.addEntity());
+auto& orangeGhost(manager.addEntity());
+auto& pinkGhost(manager.addEntity());
+auto& redGhost(manager.addEntity());
 
 
 Game::Game() {}
@@ -62,27 +63,21 @@ bool Game::init()
 
 	int iW = 60, iH = 60;
 	const std::string pacmanFile = resPath + "pacmanv3.png";
-	try {
-		pacman = new Pacman(pacmanFile.c_str(), 0, 0, iW, iH);
-	}
-	catch (const char* msg) {
-		TextureManager::LogSDLError(std::cout, "Error");
-		return false;
-	}
-
 	const std::string ghostFile = resPath + "ghosts.png";
-	try {
-		cyanGhostObj = new CyanGhost(ghostFile.c_str(), 2, 0, iW, iH);
-		orangeGhostObj = new OrangeGhost(ghostFile.c_str(), 3, 0, iW, iH);
-		pinkGhostObj = new PinkGhost(ghostFile.c_str(), 4, 0, iW, iH);
-		redGhostObj = new RedGhost(ghostFile.c_str(), 5, 0, iW, iH);
-	}
-	catch (const char* msg) {
-		TextureManager::LogSDLError(std::cout, "Error");
-		return false;
-	}
-	player.addComponent<PositionComponent>();
-	player.getComponent<PositionComponent>().setPos(500, 500);
+
+	// PACMAN
+	pacman.addComponent<PositionComponent>();
+	pacman.addComponent<SpriteComponent>(pacmanFile.c_str());
+
+	// GHOST
+	cyanGhost.addComponent<PositionComponent>(33, 0);
+	cyanGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	orangeGhost.addComponent<PositionComponent>(66, 0);
+	orangeGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	pinkGhost.addComponent<PositionComponent>(99, 0);
+	pinkGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	redGhost.addComponent<PositionComponent>(125, 0);
+	redGhost.addComponent<SpriteComponent>(ghostFile.c_str());
 
 	return true;
 }
@@ -103,16 +98,16 @@ void Game::handleEvents()
 	if (event.type == SDL_KEYDOWN) {
 		switch (event.key.keysym.sym) {
 		case SDLK_DOWN:
-			pacman->setDirection(Pacman::Direction::DOWN);
+			//pacman->setDirection(Pacman::Direction::DOWN);
 			break;
 		case SDLK_UP:
-			pacman->setDirection(Pacman::Direction::UP);
+			//pacman->setDirection(Pacman::Direction::UP);
 			break;
 		case SDLK_LEFT:
-			pacman->setDirection(Pacman::Direction::LEFT);
+			//pacman->setDirection(Pacman::Direction::LEFT);
 			break;
 		case SDLK_RIGHT:
-			pacman->setDirection(Pacman::Direction::RIGHT);
+			//pacman->setDirection(Pacman::Direction::RIGHT);
 			break;
 		}
 	}
@@ -124,20 +119,15 @@ void Game::handleEvents()
 
 void Game::update()
 {
+	manager.refresh();
 	manager.update();
-	std::cout << player.getComponent<PositionComponent>().x() << "," << player.getComponent<PositionComponent>().y() << std::endl;
 }
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
 	map->drawMap();
-	//player.draw();
-/*	pacman->draw();
-	cyanGhostObj->draw();
-	orangeGhostObj->draw();
-	pinkGhostObj->draw();
-	redGhostObj->draw();*/
+	manager.draw();
 	SDL_RenderPresent(renderer);
 }
 

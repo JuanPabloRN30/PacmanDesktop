@@ -150,7 +150,6 @@
     <ClCompile Include="ECS.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Character.cpp" />
-    <ClCompile Include="CustomSDLHandler.cpp" />
     <ClCompile Include="CyanGhost.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -158,7 +157,9 @@
     <ClCompile Include="OrangeGhost.cpp" />
     <ClCompile Include="Pacman.cpp" />
     <ClCompile Include="PinkGhost.cpp" />
+    <ClCompile Include="PositionComponent.cpp" />
     <ClCompile Include="RedGhost.cpp" />
+    <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,7 +168,6 @@
     <ClInclude Include="ECS.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Character.h" />
-    <ClInclude Include="CustomSDLHandler.h" />
     <ClInclude Include="cleanup.h" />
     <ClInclude Include="CyanGhost.h" />
     <ClInclude Include="Game.h" />
@@ -175,8 +175,10 @@
     <ClInclude Include="OrangeGhost.h" />
     <ClInclude Include="Pacman.h" />
     <ClInclude Include="PinkGhost.h" />
+    <ClInclude Include="PositionComponent.h" />
     <ClInclude Include="RedGhost.h" />
     <ClInclude Include="res_path.h" />
+    <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="TextureManager.h" />
   </ItemGroup>
   <ItemGroup>

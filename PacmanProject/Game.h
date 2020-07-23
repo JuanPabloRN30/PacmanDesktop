@@ -28,10 +28,5 @@ public:
 private:
 	const int SCREEN_WIDTH = 600;
 	const int SCREEN_HEIGHT = 600;
-	Pacman* pacman;
-	CyanGhost* cyanGhostObj;
-	OrangeGhost* orangeGhostObj;
-	PinkGhost* pinkGhostObj;
-	RedGhost* redGhostObj;
 	SDL_Window* window;
 };
