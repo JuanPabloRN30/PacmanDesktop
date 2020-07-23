@@ -66,17 +66,17 @@ bool Game::init()
 	const std::string ghostFile = resPath + "ghosts.png";
 
 	// PACMAN
-	pacman.addComponent<PositionComponent>();
+	pacman.addComponent<TransformComponent>();
 	pacman.addComponent<SpriteComponent>(pacmanFile.c_str());
 
 	// GHOST
-	cyanGhost.addComponent<PositionComponent>(33, 0);
+	cyanGhost.addComponent<TransformComponent>(33, 0);
 	cyanGhost.addComponent<SpriteComponent>(ghostFile.c_str());
-	orangeGhost.addComponent<PositionComponent>(66, 0);
+	orangeGhost.addComponent<TransformComponent>(66, 0);
 	orangeGhost.addComponent<SpriteComponent>(ghostFile.c_str());
-	pinkGhost.addComponent<PositionComponent>(99, 0);
+	pinkGhost.addComponent<TransformComponent>(99, 0);
 	pinkGhost.addComponent<SpriteComponent>(ghostFile.c_str());
-	redGhost.addComponent<PositionComponent>(125, 0);
+	redGhost.addComponent<TransformComponent>(125, 0);
 	redGhost.addComponent<SpriteComponent>(ghostFile.c_str());
 
 	return true;
