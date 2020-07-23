@@ -8,13 +8,18 @@
 #include "res_path.h"
 #include "cleanup.h"
 #include "Map.h"
-GameObject* player;
+
+#include "ECS.h"
+#include "Components.h"
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 Map* map;
 
 bool Game::isRunning = false;
+
+Manager manager;
+auto& player(manager.addEntity());
 
 
 Game::Game() {}
@@ -76,8 +81,8 @@ bool Game::init()
 		TextureManager::LogSDLError(std::cout, "Error");
 		return false;
 	}
-
-	player = new GameObject(pacmanFile.c_str(), 0, 0);
+	player.addComponent<PositionComponent>();
+	player.getComponent<PositionComponent>().setPos(500, 500);
 
 	return true;
 }
@@ -119,19 +124,15 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	player->update();
-/*	pacman->move();
-	cyanGhostObj->move();
-	orangeGhostObj->move();
-	pinkGhostObj->move();
-	redGhostObj->move();*/
+	manager.update();
+	std::cout << player.getComponent<PositionComponent>().x() << "," << player.getComponent<PositionComponent>().y() << std::endl;
 }
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
 	map->drawMap();
-	player->render();
+	//player.draw();
 /*	pacman->draw();
 	cyanGhostObj->draw();
 	orangeGhostObj->draw();
