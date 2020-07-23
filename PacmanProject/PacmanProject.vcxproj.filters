@@ -66,6 +66,9 @@
     <ClCompile Include="Vector2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="KeyBoardController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cleanup.h">
@@ -120,6 +123,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Vector2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyBoardController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

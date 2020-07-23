@@ -68,6 +68,7 @@ bool Game::init()
 	// PACMAN
 	pacman.addComponent<TransformComponent>();
 	pacman.addComponent<SpriteComponent>(pacmanFile.c_str());
+	pacman.addComponent<KeyBoardController>();
 
 	// GHOST
 	cyanGhost.addComponent<TransformComponent>(33, 0);
@@ -94,23 +95,7 @@ void Game::handleEvents()
 	if (event.type == SDL_QUIT) {
 		isRunning = false;
 	}
-	//If user presses any key
-	if (event.type == SDL_KEYDOWN) {
-		switch (event.key.keysym.sym) {
-		case SDLK_DOWN:
-			//pacman->setDirection(Pacman::Direction::DOWN);
-			break;
-		case SDLK_UP:
-			//pacman->setDirection(Pacman::Direction::UP);
-			break;
-		case SDLK_LEFT:
-			//pacman->setDirection(Pacman::Direction::LEFT);
-			break;
-		case SDLK_RIGHT:
-			//pacman->setDirection(Pacman::Direction::RIGHT);
-			break;
-		}
-	}
+
 	//If user clicks the mouse
 	if (event.type == SDL_MOUSEBUTTONDOWN) {
 		isRunning = false;
