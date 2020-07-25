@@ -6,6 +6,7 @@
 #include "TextureManager.h"
 #include "Map.h"
 #include "Components.h"
+#include "Collision.h"
 #include "res_path.h"
 #include "cleanup.h"
 
@@ -21,6 +22,8 @@ auto& cyanGhost(manager.addEntity());
 auto& orangeGhost(manager.addEntity());
 auto& pinkGhost(manager.addEntity());
 auto& redGhost(manager.addEntity());
+
+auto& wall(manager.addEntity());
 
 
 Game::Game() {}
@@ -69,16 +72,21 @@ bool Game::init()
 	pacman.addComponent<TransformComponent>();
 	pacman.addComponent<SpriteComponent>(pacmanFile.c_str());
 	pacman.addComponent<KeyBoardController>();
+	pacman.addComponent<ColliderComponent>("player");
 
 	// GHOST
-	cyanGhost.addComponent<TransformComponent>(33, 0);
+	cyanGhost.addComponent<TransformComponent>(60, 0);
 	cyanGhost.addComponent<SpriteComponent>(ghostFile.c_str());
-	orangeGhost.addComponent<TransformComponent>(66, 0);
+	orangeGhost.addComponent<TransformComponent>(120, 0);
 	orangeGhost.addComponent<SpriteComponent>(ghostFile.c_str());
-	pinkGhost.addComponent<TransformComponent>(99, 0);
+	pinkGhost.addComponent<TransformComponent>(180, 0);
 	pinkGhost.addComponent<SpriteComponent>(ghostFile.c_str());
-	redGhost.addComponent<TransformComponent>(125, 0);
+	redGhost.addComponent<TransformComponent>(240, 0);
 	redGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+
+	wall.addComponent<TransformComponent>(300, 300, 300, 20, 1);
+	wall.addComponent<SpriteComponent>(ghostFile.c_str());
+	wall.addComponent<ColliderComponent>("wall");
 
 	return true;
 }
@@ -106,6 +114,15 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
+
+	if (Collision::AABB(
+		pacman.getComponent<ColliderComponent>().collider,
+		wall.getComponent<ColliderComponent>().collider
+	)
+		) {
+		pacman.getComponent<TransformComponent>().velocity * -1;
+		std::cout << "Wall hit" << std::endl;
+	}
 }
 
 void Game::render()

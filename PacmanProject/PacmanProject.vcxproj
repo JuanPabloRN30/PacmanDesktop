@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="BaseGhost.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Components.cpp" />
     <ClCompile Include="ECS.cpp" />
     <ClCompile Include="KeyBoardController.cpp" />
@@ -168,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="BaseGhost.h" />
     <ClInclude Include="ColliderComponent.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="ECS.h" />
     <ClInclude Include="KeyBoardController.h" />
