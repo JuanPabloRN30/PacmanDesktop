@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include "TransformComponent.h"
 #include "TextureManager.h"
+#include "cleanup.h"
 
 class SpriteComponent : public Component
 {
@@ -17,6 +18,10 @@ public:
 		setTexture(path);
 	}
 
+	~SpriteComponent() {
+		cleanup(texture);
+	}
+
 	void setTexture(const char* path) {
 		texture = TextureManager::LoadTexture(path);
 	}
@@ -27,12 +32,15 @@ public:
 
 		srcRect.x = srcRect.y = 0;
 		srcRect.w = srcRect.h = 60;
-		destRect.w = destRect.h = 60;
+		srcRect.h = transform->height;
+		srcRect.w = transform->width;
 	}
 
 	void update() override {
 		destRect.x = static_cast<int>(transform->position.x);
 		destRect.y = static_cast<int>(transform->position.y);
+		destRect.w = transform->width * transform->scale;
+		destRect.h = transform->height * transform->scale;
 	}
 
 	void draw() override {
