@@ -13,6 +13,7 @@
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 Map* map;
+std::vector<ColliderComponent*> Game::colliders;
 
 bool Game::isRunning = false;
 
@@ -55,18 +56,13 @@ bool Game::init()
 		return false;
 	}
 
-	const std::string resPath = getResourcePath("PacmanProject");
-	try {
-		map = new Map(resPath, 10 * 60, 10 * 60);
-	}
-	catch (const char* msg) {
-		TextureManager::LogSDLError(std::cout, "Error");
-		return false;
-	}
-
 	int iW = 60, iH = 60;
+	const std::string resPath = getResourcePath("PacmanProject");
+	const std::string mapFile = resPath + "map.txt";
 	const std::string pacmanFile = resPath + "pacmanv3.png";
 	const std::string ghostFile = resPath + "ghosts.png";
+
+	Map::loadMap(mapFile, 10, 10);
 
 	// PACMAN
 	pacman.addComponent<TransformComponent>();
@@ -115,20 +111,14 @@ void Game::update()
 	manager.refresh();
 	manager.update();
 
-	if (Collision::AABB(
-		pacman.getComponent<ColliderComponent>().collider,
-		wall.getComponent<ColliderComponent>().collider
-	)
-		) {
-		pacman.getComponent<TransformComponent>().velocity * -1;
-		std::cout << "Wall hit" << std::endl;
+	for (auto& cc : colliders) {
+		Collision::AABB(pacman.getComponent<ColliderComponent>(), *cc);
 	}
 }
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	map->drawMap();
 	manager.draw();
 	SDL_RenderPresent(renderer);
 }
@@ -138,4 +128,11 @@ void Game::clean()
 	cleanup(renderer, window);
 	IMG_Quit();
 	SDL_Quit();
+}
+
+void Game::addTile(int id, int x, int y)
+{
+	auto& tile(manager.addEntity());
+	tile.addComponent<TileComponent>(x, y, 60, 60, id);
+
 }
