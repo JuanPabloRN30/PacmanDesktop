@@ -26,6 +26,13 @@ auto& redGhost(manager.addEntity());
 
 auto& wall(manager.addEntity());
 
+enum groupLabels : std::size_t {
+	groupMap,
+	groupPlayer,
+	groupEnemies,
+	groupColliders
+};
+
 
 Game::Game() {}
 
@@ -69,20 +76,26 @@ bool Game::init()
 	pacman.addComponent<SpriteComponent>(pacmanFile.c_str());
 	pacman.addComponent<KeyBoardController>();
 	pacman.addComponent<ColliderComponent>("player");
+	pacman.addGroup(groupPlayer);
 
 	// GHOST
 	cyanGhost.addComponent<TransformComponent>(60, 0);
 	cyanGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	cyanGhost.addGroup(groupEnemies);
 	orangeGhost.addComponent<TransformComponent>(120, 0);
 	orangeGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	orangeGhost.addGroup(groupEnemies);
 	pinkGhost.addComponent<TransformComponent>(180, 0);
 	pinkGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	pinkGhost.addGroup(groupEnemies);
 	redGhost.addComponent<TransformComponent>(240, 0);
 	redGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	redGhost.addGroup(groupEnemies);
 
 	wall.addComponent<TransformComponent>(300, 300, 300, 20, 1);
 	wall.addComponent<SpriteComponent>(ghostFile.c_str());
 	wall.addComponent<ColliderComponent>("wall");
+	wall.addGroup(groupMap);
 
 	return true;
 }
@@ -116,10 +129,16 @@ void Game::update()
 	}
 }
 
+auto& tiles(manager.getGroup(groupMap));
+auto& players(manager.getGroup(groupPlayer));
+auto& enemies(manager.getGroup(groupEnemies));
+
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	manager.draw();
+	for (auto& t : tiles) t->draw();
+	for (auto& p : players) p->draw();
+	for (auto& e : enemies) e->draw();
 	SDL_RenderPresent(renderer);
 }
 
@@ -134,5 +153,6 @@ void Game::addTile(int id, int x, int y)
 {
 	auto& tile(manager.addEntity());
 	tile.addComponent<TileComponent>(x, y, 60, 60, id);
+	tile.addGroup(groupMap);
 
 }
