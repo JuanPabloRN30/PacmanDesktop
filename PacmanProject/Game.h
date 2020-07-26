@@ -1,11 +1,6 @@
 #pragma once
 
 #include <SDL.h>
-#include "Pacman.h"
-#include "CyanGhost.h"
-#include "OrangeGhost.h"
-#include "PinkGhost.h"
-#include "RedGhost.h"
 #include <vector>
 
 class ColliderComponent;

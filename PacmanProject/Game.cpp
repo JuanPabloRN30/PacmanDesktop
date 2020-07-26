@@ -73,7 +73,7 @@ bool Game::init()
 
 	// PACMAN
 	pacman.addComponent<TransformComponent>();
-	pacman.addComponent<SpriteComponent>(pacmanFile.c_str());
+	pacman.addComponent<SpriteComponent>(pacmanFile.c_str(), true);
 	pacman.addComponent<KeyBoardController>();
 	pacman.addComponent<ColliderComponent>("player");
 	pacman.addGroup(groupPlayer);
