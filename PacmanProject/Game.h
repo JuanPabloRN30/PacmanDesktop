@@ -6,6 +6,9 @@
 #include "OrangeGhost.h"
 #include "PinkGhost.h"
 #include "RedGhost.h"
+#include <vector>
+
+class ColliderComponent;
 
 
 class Game
@@ -21,9 +24,11 @@ public:
 	void render();
 	void clean();
 
+	static void addTile(int id, int x, int y);
 	static bool isRunning;
 	static SDL_Event event;
 	static SDL_Renderer* renderer;
+	static std::vector<ColliderComponent*> colliders;
 
 private:
 	const int SCREEN_WIDTH = 600;
