@@ -24,7 +24,7 @@ auto& orangeGhost(manager.addEntity());
 auto& pinkGhost(manager.addEntity());
 auto& redGhost(manager.addEntity());
 
-auto& wall(manager.addEntity());
+const char* mapFile = "board.png";
 
 enum groupLabels : std::size_t {
 	groupMap,
@@ -65,11 +65,10 @@ bool Game::init()
 
 	int iW = 60, iH = 60;
 	const std::string resPath = getResourcePath("PacmanProject");
-	const std::string mapFile = resPath + "map.txt";
 	const std::string pacmanFile = resPath + "pacmanv3.png";
 	const std::string ghostFile = resPath + "ghosts.png";
 
-	Map::loadMap(mapFile, 10, 10);
+	Map::loadMap("map.txt", 10, 10);
 
 	// PACMAN
 	pacman.addComponent<TransformComponent>();
@@ -91,11 +90,6 @@ bool Game::init()
 	redGhost.addComponent<TransformComponent>(240, 0);
 	redGhost.addComponent<SpriteComponent>(ghostFile.c_str());
 	redGhost.addGroup(groupEnemies);
-
-	wall.addComponent<TransformComponent>(300, 300, 300, 20, 1);
-	wall.addComponent<SpriteComponent>(ghostFile.c_str());
-	wall.addComponent<ColliderComponent>("wall");
-	wall.addGroup(groupMap);
 
 	return true;
 }
@@ -149,10 +143,10 @@ void Game::clean()
 	SDL_Quit();
 }
 
-void Game::addTile(int id, int x, int y)
+void Game::addTile(int srcX, int srcY, int xpos, int ypos)
 {
 	auto& tile(manager.addEntity());
-	tile.addComponent<TileComponent>(x, y, 60, 60, id);
+	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, mapFile);
 	tile.addGroup(groupMap);
 
 }
