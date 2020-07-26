@@ -4,6 +4,8 @@
 #include "TransformComponent.h"
 #include "TextureManager.h"
 #include "cleanup.h"
+#include "Animation.h"
+#include <map>
 
 class SpriteComponent : public Component
 {
@@ -12,10 +14,30 @@ private:
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;
 
+	bool animated = false;
+	int frames = 0;
+	int speed = 100;
+	double angle = 0;
+
 public:
+
+	int animIndex = 0;
+	std::map<const char*, Animation> animations;
+	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
+
 	SpriteComponent() = default;
+
 	SpriteComponent(const char* path) {
 		setTexture(path);
+	}
+
+	SpriteComponent(const char* path, bool isAnimated) {
+		setTexture(path);
+		animated = isAnimated;
+
+		Animation move = Animation(0, 3, 100);
+		animations.emplace("Move", move);
+		Play("Move");
 	}
 
 	~SpriteComponent() {
@@ -37,6 +59,13 @@ public:
 	}
 
 	void update() override {
+
+		if (animated) {
+			srcRect.y = srcRect.h * static_cast<int>((SDL_GetTicks() / speed) % frames) + 5;
+		}
+
+		srcRect.x = animIndex * transform->width;
+
 		destRect.x = static_cast<int>(transform->position.x);
 		destRect.y = static_cast<int>(transform->position.y);
 		destRect.w = transform->width * transform->scale;
@@ -44,7 +73,17 @@ public:
 	}
 
 	void draw() override {
-		TextureManager::Draw(texture, srcRect, destRect, NULL, SDL_FLIP_NONE);
+		TextureManager::Draw(texture, srcRect, destRect, angle, spriteFlip);
+	}
+
+	void setAngle(double a) {
+		angle = a;
+	}
+
+	void Play(const char* animName) {
+		animIndex = animations[animName].index;
+		frames = animations[animName].frames;
+		speed = animations[animName].speed;
 	}
 };
 

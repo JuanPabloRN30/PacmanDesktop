@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BaseGhost.cpp" />
     <ClCompile Include="ColliderComponent.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -153,21 +154,17 @@
     <ClCompile Include="KeyBoardController.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Character.cpp" />
-    <ClCompile Include="CyanGhost.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="OrangeGhost.cpp" />
-    <ClCompile Include="Pacman.cpp" />
-    <ClCompile Include="PinkGhost.cpp" />
     <ClCompile Include="TileComponent.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
-    <ClCompile Include="RedGhost.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="BaseGhost.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Collision.h" />
@@ -177,15 +174,10 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="cleanup.h" />
-    <ClInclude Include="CyanGhost.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="OrangeGhost.h" />
-    <ClInclude Include="Pacman.h" />
-    <ClInclude Include="PinkGhost.h" />
     <ClInclude Include="TileComponent.h" />
     <ClInclude Include="TransformComponent.h" />
-    <ClInclude Include="RedGhost.h" />
     <ClInclude Include="res_path.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="TextureManager.h" />
