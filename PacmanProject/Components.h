@@ -6,3 +6,6 @@
 #include "KeyBoardController.h"
 #include "ColliderComponent.h"
 #include "TileComponent.h"
+
+// GHOST
+#include "RandomMovementComponent.h"

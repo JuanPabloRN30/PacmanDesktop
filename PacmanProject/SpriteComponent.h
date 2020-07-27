@@ -53,7 +53,6 @@ public:
 		transform = &entity->getComponent<TransformComponent>();
 
 		srcRect.x = srcRect.y = 0;
-		srcRect.w = srcRect.h = 60;
 		srcRect.h = transform->height;
 		srcRect.w = transform->width;
 	}

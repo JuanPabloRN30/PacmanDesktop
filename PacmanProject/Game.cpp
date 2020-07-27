@@ -24,7 +24,7 @@ auto& orangeGhost(manager.addEntity());
 auto& pinkGhost(manager.addEntity());
 auto& redGhost(manager.addEntity());
 
-const char* mapFile = "board.png";
+const char* mapFile = "boardv2.png";
 
 enum groupLabels : std::size_t {
 	groupMap,
@@ -80,15 +80,26 @@ bool Game::init()
 	// GHOST
 	cyanGhost.addComponent<TransformComponent>(60, 0);
 	cyanGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	cyanGhost.addComponent<RandomMovementComponent>();
+	cyanGhost.addComponent<ColliderComponent>("enemy");
 	cyanGhost.addGroup(groupEnemies);
+
 	orangeGhost.addComponent<TransformComponent>(120, 0);
 	orangeGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	orangeGhost.addComponent<RandomMovementComponent>();
+	orangeGhost.addComponent<ColliderComponent>("enemy");
 	orangeGhost.addGroup(groupEnemies);
+
 	pinkGhost.addComponent<TransformComponent>(180, 0);
 	pinkGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	pinkGhost.addComponent<RandomMovementComponent>();
+	pinkGhost.addComponent<ColliderComponent>("enemy");
 	pinkGhost.addGroup(groupEnemies);
+
 	redGhost.addComponent<TransformComponent>(240, 0);
 	redGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	redGhost.addComponent<RandomMovementComponent>();
+	redGhost.addComponent<ColliderComponent>("enemy");
 	redGhost.addGroup(groupEnemies);
 
 	return true;
@@ -147,6 +158,6 @@ void Game::addTile(int srcX, int srcY, int xpos, int ypos)
 {
 	auto& tile(manager.addEntity());
 	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, mapFile);
+	tile.addComponent<ColliderComponent>("map");
 	tile.addGroup(groupMap);
-
 }
