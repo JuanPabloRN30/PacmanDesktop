@@ -21,9 +21,9 @@ void Map::loadMap(std::string path, int sizeX, int sizeY)
 	for (int y = 0; y < sizeY; y++) {
 		for (int x = 0; x < sizeX; x++) {
 			mapFile.get(c);
-			srcY = atoi(&c) * 32;
+			srcY = atoi(&c) * 60;
 			mapFile.get(c);
-			srcX = atoi(&c) * 32;
+			srcX = atoi(&c) * 60;
 			Game::addTile(srcX, srcY, x * 60, y * 60);
 			mapFile.ignore();
 		}
