@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ECS.cpp" />
+    <ClCompile Include="GhostSpriteComponent.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="ECS.h" />
+    <ClInclude Include="GhostSpriteComponent.h" />
     <ClInclude Include="KeyBoardController.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="cleanup.h" />
@@ -175,13 +177,17 @@
     <Image Include="board.png" />
     <Image Include="boardv2.png" />
     <Image Include="cookie.png" />
+    <Image Include="cyan_ghost.png" />
     <Image Include="down_left_corner.png" />
     <Image Include="down_right_corner.png" />
     <Image Include="down_wall.png" />
     <Image Include="emptySpace.png" />
     <Image Include="ghosts.png" />
     <Image Include="left_wall.png" />
+    <Image Include="orange_ghost.png" />
     <Image Include="pacmanv3.png" />
+    <Image Include="pink_ghost.png" />
+    <Image Include="red_ghost.png" />
     <Image Include="right_wall.png" />
     <Image Include="up_left_corner.png" />
     <Image Include="up_right_corner.png" />

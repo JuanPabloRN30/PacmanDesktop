@@ -8,6 +8,13 @@ class TransformComponent : public Component
 
 public:
 
+	enum direction : std::size_t {
+		down,
+		up,
+		left,
+		right
+	};
+
 	Vector2D position;
 	Vector2D velocity;
 
@@ -43,5 +50,10 @@ public:
 		position.y += velocity.y * speed;
 	}
 
+	direction getDirection() {
+		if (velocity.x < 0) return left;
+		if (velocity.y < 0) return up;
+		if (velocity.x > 0) return right;
+		if (velocity.y > 0) return down;
+	}
 };
-

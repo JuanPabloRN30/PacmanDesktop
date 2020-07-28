@@ -9,11 +9,10 @@
 
 class SpriteComponent : public Component
 {
-private:
-	TransformComponent *transform;
+protected:
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;
-
+	TransformComponent* transform;
 	bool animated = false;
 	int frames = 0;
 	int speed = 100;
@@ -37,7 +36,6 @@ public:
 
 		Animation move = Animation(0, 3, 100);
 		animations.emplace("Move", move);
-		Play("Move");
 	}
 
 	~SpriteComponent() {
@@ -55,12 +53,14 @@ public:
 		srcRect.x = srcRect.y = 0;
 		srcRect.h = transform->height;
 		srcRect.w = transform->width;
+		Play("Move");
 	}
 
 	void update() override {
+		int srcY = static_cast<int>((SDL_GetTicks() / speed) % frames);
 
 		if (animated) {
-			srcRect.y = srcRect.h * static_cast<int>((SDL_GetTicks() / speed) % frames) + 5;
+			srcRect.y = srcRect.h * srcY + (5 * srcY);
 		}
 
 		srcRect.x = animIndex * transform->width;
@@ -85,4 +85,3 @@ public:
 		speed = animations[animName].speed;
 	}
 };
-

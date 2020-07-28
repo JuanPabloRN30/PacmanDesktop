@@ -9,3 +9,4 @@
 
 // GHOST
 #include "RandomMovementComponent.h"
+#include "GhostSpriteComponent.h"

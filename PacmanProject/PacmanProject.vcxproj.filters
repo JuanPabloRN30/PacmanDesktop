@@ -30,34 +30,13 @@
     <ClCompile Include="ECS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Vector2D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyBoardController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ColliderComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TileComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RandomMovementComponent.cpp">
+    <ClCompile Include="GhostSpriteComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -110,6 +89,9 @@
     <ClInclude Include="RandomMovementComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GhostSpriteComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="ghosts.png">
@@ -152,6 +134,18 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="cookie.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="cyan_ghost.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="orange_ghost.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pink_ghost.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="red_ghost.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
