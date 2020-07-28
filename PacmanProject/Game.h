@@ -24,9 +24,9 @@ public:
 	static SDL_Event event;
 	static SDL_Renderer* renderer;
 	static std::vector<ColliderComponent*> colliders;
+	static const int SCREEN_WIDTH = 600;
+	static const int SCREEN_HEIGHT = 600;
 
 private:
-	const int SCREEN_WIDTH = 600;
-	const int SCREEN_HEIGHT = 600;
 	SDL_Window* window;
 };

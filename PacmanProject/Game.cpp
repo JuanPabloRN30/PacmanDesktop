@@ -66,7 +66,6 @@ bool Game::init()
 	int iW = 60, iH = 60;
 	const std::string resPath = getResourcePath("PacmanProject");
 	const std::string pacmanFile = resPath + "pacmanv3.png";
-	const std::string ghostFile = resPath + "ghosts.png";
 
 	Map::loadMap("map.txt", 10, 10);
 
@@ -79,25 +78,25 @@ bool Game::init()
 
 	// GHOST
 	cyanGhost.addComponent<TransformComponent>(60, 0);
-	cyanGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	cyanGhost.addComponent<GhostSpriteComponent>("cyan_ghost.png", true);
 	cyanGhost.addComponent<RandomMovementComponent>();
 	cyanGhost.addComponent<ColliderComponent>("enemy");
 	cyanGhost.addGroup(groupEnemies);
 
 	orangeGhost.addComponent<TransformComponent>(120, 0);
-	orangeGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	orangeGhost.addComponent<GhostSpriteComponent>("orange_ghost.png", true);
 	orangeGhost.addComponent<RandomMovementComponent>();
 	orangeGhost.addComponent<ColliderComponent>("enemy");
 	orangeGhost.addGroup(groupEnemies);
 
 	pinkGhost.addComponent<TransformComponent>(180, 0);
-	pinkGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	pinkGhost.addComponent<GhostSpriteComponent>("pink_ghost.png", true);
 	pinkGhost.addComponent<RandomMovementComponent>();
 	pinkGhost.addComponent<ColliderComponent>("enemy");
 	pinkGhost.addGroup(groupEnemies);
 
 	redGhost.addComponent<TransformComponent>(240, 0);
-	redGhost.addComponent<SpriteComponent>(ghostFile.c_str());
+	redGhost.addComponent<GhostSpriteComponent>("red_ghost.png", true);
 	redGhost.addComponent<RandomMovementComponent>();
 	redGhost.addComponent<ColliderComponent>("enemy");
 	redGhost.addGroup(groupEnemies);
