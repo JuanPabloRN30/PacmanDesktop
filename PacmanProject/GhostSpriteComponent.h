@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SpriteComponent.h"
+#include "cleanup.h"
 
 class GhostSpriteComponent : public SpriteComponent
 {
@@ -15,6 +16,10 @@ public:
 		animations.emplace("Scared", scared);
 	}
 
+	~GhostSpriteComponent(){
+		cleanup(texture);
+	}
+
 	void update() override {
 		int srcY = static_cast<int>((SDL_GetTicks() / speed) % frames);
 
@@ -23,10 +28,10 @@ public:
 		}
 
 		if (animIndex != 4) {
-			if (transform->getDirection() == TransformComponent::left) animIndex = 0;
-			if (transform->getDirection() == TransformComponent::up) animIndex = 1;
-			if (transform->getDirection() == TransformComponent::right) animIndex = 2;
-			if (transform->getDirection() == TransformComponent::down) animIndex = 3;
+			if (transform->getDirection() == TransformComponent::direction::left) animIndex = 0;
+			if (transform->getDirection() == TransformComponent::direction::up) animIndex = 1;
+			if (transform->getDirection() == TransformComponent::direction::right) animIndex = 2;
+			if (transform->getDirection() == TransformComponent::direction::down) animIndex = 3;
 		}
 		srcRect.x = animIndex * transform->width + (5 * animIndex);
 

@@ -8,7 +8,7 @@ class TransformComponent : public Component
 
 public:
 
-	enum direction : std::size_t {
+	enum class direction : std::size_t {
 		down,
 		up,
 		left,
@@ -51,9 +51,9 @@ public:
 	}
 
 	direction getDirection() {
-		if (velocity.x < 0) return left;
-		if (velocity.y < 0) return up;
-		if (velocity.x > 0) return right;
-		if (velocity.y > 0) return down;
+		if (velocity.x < 0) return direction::left;
+		if (velocity.y < 0) return direction::up;
+		if (velocity.x > 0) return direction::right;
+		if (velocity.y > 0) return direction::down;
 	}
 };
