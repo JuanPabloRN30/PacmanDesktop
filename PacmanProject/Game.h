@@ -19,13 +19,17 @@ public:
 	void render();
 	void clean();
 
-	static void addTile(int srcX, int srcY, int xpos, int ypos);
 	static bool isRunning;
 	static SDL_Event event;
 	static SDL_Renderer* renderer;
-	static std::vector<ColliderComponent*> colliders;
-	static const int SCREEN_WIDTH = 600;
-	static const int SCREEN_HEIGHT = 600;
+	static const int SCREEN_WIDTH = 800;
+	static const int SCREEN_HEIGHT = 800;
+	enum groupLabels : std::size_t {
+		groupMap,
+		groupPlayer,
+		groupEnemies,
+		groupColliders
+	};
 
 private:
 	SDL_Window* window;
