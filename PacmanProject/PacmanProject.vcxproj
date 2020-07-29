@@ -176,6 +176,7 @@
   <ItemGroup>
     <Image Include="board.png" />
     <Image Include="boardv2.png" />
+    <Image Include="collider.png" />
     <Image Include="cookie.png" />
     <Image Include="cyan_ghost.png" />
     <Image Include="down_left_corner.png" />
@@ -185,6 +186,8 @@
     <Image Include="ghosts.png" />
     <Image Include="left_wall.png" />
     <Image Include="orange_ghost.png" />
+    <Image Include="pacmanboardv1.png" />
+    <Image Include="pacmanboardv2.png" />
     <Image Include="pacmanv3.png" />
     <Image Include="pink_ghost.png" />
     <Image Include="red_ghost.png" />
@@ -194,7 +197,9 @@
     <Image Include="up_wall.png" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="map.txt" />
+    <Text Include="map.map" />
+    <Text Include="pacmanboardv1t.txt" />
+    <Text Include="pacmanboardv2t.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

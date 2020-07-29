@@ -148,9 +148,24 @@
     <Image Include="red_ghost.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="pacmanboardv1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pacmanboardv2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="collider.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="map.txt">
+    <Text Include="pacmanboardv1t.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="pacmanboardv2t.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="map.map">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

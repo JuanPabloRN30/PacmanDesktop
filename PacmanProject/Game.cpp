@@ -13,7 +13,6 @@
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 Map* map;
-std::vector<ColliderComponent*> Game::colliders;
 
 bool Game::isRunning = false;
 
@@ -23,15 +22,6 @@ auto& cyanGhost(manager.addEntity());
 auto& orangeGhost(manager.addEntity());
 auto& pinkGhost(manager.addEntity());
 auto& redGhost(manager.addEntity());
-
-const char* mapFile = "boardv2.png";
-
-enum groupLabels : std::size_t {
-	groupMap,
-	groupPlayer,
-	groupEnemies,
-	groupColliders
-};
 
 
 Game::Game() {}
@@ -67,10 +57,11 @@ bool Game::init()
 	const std::string resPath = getResourcePath("PacmanProject");
 	const std::string pacmanFile = resPath + "pacmanv3.png";
 
-	Map::loadMap("map.txt", 10, 10);
+	map = new Map("pacmanboardv2.png", 4, 16);
+	map->loadMap("map.map", 13, 7);
 
 	// PACMAN
-	pacman.addComponent<TransformComponent>();
+	pacman.addComponent<TransformComponent>(65, 65);
 	pacman.addComponent<SpriteComponent>(pacmanFile.c_str(), true);
 	pacman.addComponent<KeyBoardController>();
 	pacman.addComponent<ColliderComponent>("player");
@@ -123,26 +114,32 @@ void Game::handleEvents()
 	}
 }
 
+auto& tiles(manager.getGroup(Game::groupMap));
+auto& players(manager.getGroup(Game::groupPlayer));
+auto& enemies(manager.getGroup(Game::groupEnemies));
+auto& colliders(manager.getGroup(Game::groupColliders));
+
 void Game::update()
 {
+	Vector2D pacmanPos = pacman.getComponent<TransformComponent>().position;
+
 	manager.refresh();
 	manager.update();
 
-	for (auto& cc : colliders) {
-		Collision::AABB(pacman.getComponent<ColliderComponent>(), *cc);
+	for (auto& c : colliders) {
+		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), c->getComponent<ColliderComponent>())) {
+			pacman.getComponent<TransformComponent>().position = pacmanPos;
+		}
 	}
 }
-
-auto& tiles(manager.getGroup(groupMap));
-auto& players(manager.getGroup(groupPlayer));
-auto& enemies(manager.getGroup(groupEnemies));
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
 	for (auto& t : tiles) t->draw();
+	for (auto& c : colliders) c->draw();
 	for (auto& p : players) p->draw();
-	for (auto& e : enemies) e->draw();
+	/*for (auto& e : enemies) e->draw();*/
 	SDL_RenderPresent(renderer);
 }
 
@@ -151,12 +148,4 @@ void Game::clean()
 	cleanup(renderer, window);
 	IMG_Quit();
 	SDL_Quit();
-}
-
-void Game::addTile(int srcX, int srcY, int xpos, int ypos)
-{
-	auto& tile(manager.addEntity());
-	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, mapFile);
-	tile.addComponent<ColliderComponent>("map");
-	tile.addGroup(groupMap);
 }
