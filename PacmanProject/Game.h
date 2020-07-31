@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <vector>
 
+class AssetManager;
 class ColliderComponent;
 
 
@@ -24,6 +25,7 @@ public:
 	static SDL_Renderer* renderer;
 	static const int SCREEN_WIDTH = 800;
 	static const int SCREEN_HEIGHT = 800;
+	static AssetManager* assets;
 	enum groupLabels : std::size_t {
 		groupMap,
 		groupPlayer,
