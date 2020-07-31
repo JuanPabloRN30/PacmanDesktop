@@ -118,6 +118,7 @@ auto& tiles(manager.getGroup(Game::groupMap));
 auto& players(manager.getGroup(Game::groupPlayer));
 auto& enemies(manager.getGroup(Game::groupEnemies));
 auto& colliders(manager.getGroup(Game::groupColliders));
+auto& cookies(manager.getGroup(Game::groupCookies));
 
 void Game::update()
 {
@@ -131,6 +132,13 @@ void Game::update()
 			pacman.getComponent<TransformComponent>().position = pacmanPos;
 		}
 	}
+
+	for (auto& c : cookies) {
+		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), c->getComponent<ColliderComponent>())) {
+			c->destroy();
+		}
+	}
+
 }
 
 void Game::render()
@@ -138,6 +146,7 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	for (auto& t : tiles) t->draw();
 	for (auto& c : colliders) c->draw();
+	for (auto& c : cookies) c->draw();
 	for (auto& p : players) p->draw();
 	/*for (auto& e : enemies) e->draw();*/
 	SDL_RenderPresent(renderer);
