@@ -5,6 +5,7 @@
 #include "ECS.h"
 #include "TileComponent.h"
 #include "ColliderComponent.h"
+#include "ScoreComponent.h"
 
 extern Manager manager;
 
@@ -81,5 +82,6 @@ void Map::addCookieTile(int xpos, int ypos)
 	auto& tcookie(manager.addEntity());
 	tcookie.addComponent<ColliderComponent>("cookie", xpos * scaledSize, ypos * scaledSize, scaledSize);
 	tcookie.addComponent<TileComponent>(0, 0, xpos * scaledSize, ypos * scaledSize, tileSize, mapScale, "cookie.png");
+	tcookie.addComponent<ScoreComponent>(10);
 	tcookie.addGroup(Game::groupCookies);
 }

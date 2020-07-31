@@ -9,6 +9,8 @@
 #include "Collision.h"
 #include "res_path.h"
 #include "cleanup.h"
+#include "AssetManager.h"
+#include <sstream>
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
@@ -22,6 +24,10 @@ auto& cyanGhost(manager.addEntity());
 auto& orangeGhost(manager.addEntity());
 auto& pinkGhost(manager.addEntity());
 auto& redGhost(manager.addEntity());
+
+AssetManager* Game::assets = new AssetManager();
+
+auto& label(manager.addEntity());
 
 
 Game::Game() {}
@@ -40,6 +46,11 @@ bool Game::init()
 		return false;
 	}
 
+	if (TTF_Init() == -1) {
+		TextureManager::LogSDLError(std::cout, "TTF_Init");
+		return false;
+	}
+
 	isRunning = true;
 
 	window = SDL_CreateWindow("Pacman game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -53,6 +64,8 @@ bool Game::init()
 		return false;
 	}
 
+	assets->addFont("arial", "arial.ttf", 16);
+
 	int iW = 60, iH = 60;
 	const std::string resPath = getResourcePath("PacmanProject");
 	const std::string pacmanFile = resPath + "pacmanv3.png";
@@ -65,6 +78,7 @@ bool Game::init()
 	pacman.addComponent<SpriteComponent>(pacmanFile.c_str(), true);
 	pacman.addComponent<KeyBoardController>();
 	pacman.addComponent<ColliderComponent>("player");
+	pacman.addComponent<ScoreComponent>();
 	pacman.addGroup(groupPlayer);
 
 	// GHOST
@@ -91,6 +105,9 @@ bool Game::init()
 	redGhost.addComponent<RandomMovementComponent>();
 	redGhost.addComponent<ColliderComponent>("enemy");
 	redGhost.addGroup(groupEnemies);
+
+	SDL_Color white = { 255, 255, 255, 255 };
+	label.addComponent<UILabel>(10, 10, "Test String", "arial", white);
 
 	return true;
 }
@@ -124,6 +141,10 @@ void Game::update()
 {
 	Vector2D pacmanPos = pacman.getComponent<TransformComponent>().position;
 
+	std::stringstream ss;
+	ss << "1UP " << pacman.getComponent<ScoreComponent>().entityScore;
+	label.getComponent<UILabel>().setLabelText(ss.str().c_str());
+
 	manager.refresh();
 	manager.update();
 
@@ -135,6 +156,7 @@ void Game::update()
 
 	for (auto& c : cookies) {
 		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), c->getComponent<ColliderComponent>())) {
+			pacman.getComponent<ScoreComponent>().addEntityScore(c->getComponent<ScoreComponent>().score);
 			c->destroy();
 		}
 	}
@@ -145,10 +167,12 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	for (auto& t : tiles) t->draw();
-	for (auto& c : colliders) c->draw();
+	//for (auto& c : colliders) c->draw();
 	for (auto& c : cookies) c->draw();
 	for (auto& p : players) p->draw();
-	/*for (auto& e : enemies) e->draw();*/
+	for (auto& e : enemies) e->draw();
+
+	label.draw();
 	SDL_RenderPresent(renderer);
 }
 
