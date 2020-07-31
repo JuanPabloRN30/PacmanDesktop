@@ -23,6 +23,18 @@ public:
 		tag = t;
 	}
 
+	ColliderComponent(std::string t, int xpos, int ypos, int size, const char* path) {
+		tag = t;
+		collider.x = xpos;
+		collider.y = ypos;
+		collider.h = collider.w = size;
+		
+		tex = TextureManager::LoadTexture(path);
+
+		srcRect = { 0, 0, 60, 60 };
+		destRect = { collider.x, collider.y, collider.w, collider.h };
+	}
+
 	ColliderComponent(std::string t, int xpos, int ypos, int size) {
 		tag = t;
 		collider.x = xpos;
@@ -39,15 +51,11 @@ public:
 			entity->addComponent<TransformComponent>();
 		}
 		transform = &entity->getComponent<TransformComponent>();
-
-		tex = TextureManager::LoadTexture("collider.png");
-		srcRect = { 0, 0, 60, 60 };
-		destRect = { collider.x, collider.y, collider.w, collider.h};
 	}
 
 	void update() override {
 
-		if (tag != "map") {
+		if (tag != "map" && tag != "cookie") {
 			collider.x = static_cast<int>(transform->position.x);
 			collider.y = static_cast<int>(transform->position.y);
 			collider.w = transform->width * transform->scale;
@@ -59,6 +67,7 @@ public:
 	}
 
 	void draw() override {
+		if (tex == nullptr) return;
 		TextureManager::Draw(tex, srcRect, destRect, NULL, SDL_FLIP_NONE);
 	}
 };

@@ -28,7 +28,8 @@ public:
 		groupMap,
 		groupPlayer,
 		groupEnemies,
-		groupColliders
+		groupColliders,
+		groupCookies
 	};
 
 private:

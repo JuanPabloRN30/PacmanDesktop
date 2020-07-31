@@ -47,6 +47,18 @@ void Map::loadMap(std::string path, int sizeX, int sizeY)
 			mapFile.ignore();
 		}
 	}
+
+	mapFile.ignore();
+
+	for (int y = 0; y < sizeY; y++) {
+		for (int x = 0; x < sizeX; x++) {
+			mapFile.get(c);
+			if (c == '1') {
+				addCookieTile(x, y);
+			}
+			mapFile.ignore();
+		}
+	}
 	mapFile.close();
 }
 
@@ -60,6 +72,14 @@ void Map::addTile(int srcX, int srcY, int xpos, int ypos)
 void Map::addTileCollider(int xpos, int ypos)
 {
 	auto& tcol(manager.addEntity());
-	tcol.addComponent<ColliderComponent>("map", xpos * scaledSize, ypos * scaledSize, scaledSize);
+	tcol.addComponent<ColliderComponent>("map", xpos * scaledSize, ypos * scaledSize, scaledSize, "collider.png");
 	tcol.addGroup(Game::groupColliders);
+}
+
+void Map::addCookieTile(int xpos, int ypos)
+{
+	auto& tcookie(manager.addEntity());
+	tcookie.addComponent<ColliderComponent>("cookie", xpos * scaledSize, ypos * scaledSize, scaledSize);
+	tcookie.addComponent<TileComponent>(0, 0, xpos * scaledSize, ypos * scaledSize, tileSize, mapScale, "cookie.png");
+	tcookie.addGroup(Game::groupCookies);
 }
