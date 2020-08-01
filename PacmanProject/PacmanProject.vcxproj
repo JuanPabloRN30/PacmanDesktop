@@ -149,6 +149,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ECS.cpp" />
     <ClCompile Include="GhostSpriteComponent.cpp" />
+    <ClCompile Include="LifeComponent.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="ECS.h" />
     <ClInclude Include="GhostSpriteComponent.h" />
     <ClInclude Include="KeyBoardController.h" />
+    <ClInclude Include="LifeComponent.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="cleanup.h" />
     <ClInclude Include="Game.h" />

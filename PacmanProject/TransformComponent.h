@@ -15,6 +15,7 @@ public:
 		right
 	};
 
+	Vector2D initialPosition;
 	Vector2D position;
 	Vector2D velocity;
 
@@ -26,11 +27,15 @@ public:
 
 	TransformComponent() {
 		position.Zero();
+
+		initialPosition = position;
 	}
 
 	TransformComponent(double x, double y) {
 		position.x = x;
 		position.y = y;
+
+		initialPosition = position;
 	}
 
 	TransformComponent(double x, double y, int h, int w, int sc) {
@@ -39,6 +44,13 @@ public:
 		height = h;
 		width = w;
 		scale = sc;
+
+		initialPosition = position;
+	}
+
+	void reset() {
+		position = initialPosition;
+		init();
 	}
 
 	void init() override {
@@ -55,5 +67,6 @@ public:
 		if (velocity.y < 0) return direction::up;
 		if (velocity.x > 0) return direction::right;
 		if (velocity.y > 0) return direction::down;
+		return direction::left;
 	}
 };
