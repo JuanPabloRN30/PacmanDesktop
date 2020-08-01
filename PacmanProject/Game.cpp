@@ -167,7 +167,7 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	for (auto& t : tiles) t->draw();
-	//for (auto& c : colliders) c->draw();
+	for (auto& c : colliders) c->draw();
 	for (auto& c : cookies) c->draw();
 	for (auto& p : players) p->draw();
 	for (auto& e : enemies) e->draw();

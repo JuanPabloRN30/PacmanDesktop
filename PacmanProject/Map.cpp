@@ -79,9 +79,14 @@ void Map::addTileCollider(int xpos, int ypos)
 
 void Map::addCookieTile(int xpos, int ypos)
 {
+	int cookieTileSize = 3;
+	int x = (scaledSize / 2) + (xpos * scaledSize);
+	int y = (scaledSize / 2) + (ypos * scaledSize);
+
+
 	auto& tcookie(manager.addEntity());
-	tcookie.addComponent<ColliderComponent>("cookie", xpos * scaledSize, ypos * scaledSize, scaledSize);
-	tcookie.addComponent<TileComponent>(0, 0, xpos * scaledSize, ypos * scaledSize, tileSize, mapScale, "cookie.png");
+	tcookie.addComponent<ColliderComponent>("cookie", x, y, cookieTileSize * mapScale, "collider.png");
+	tcookie.addComponent<TileComponent>(0, 0, x, y, cookieTileSize, mapScale, "cookie.png");
 	tcookie.addComponent<ScoreComponent>(10);
 	tcookie.addGroup(Game::groupCookies);
 }
