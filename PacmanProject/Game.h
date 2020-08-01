@@ -20,6 +20,7 @@ public:
 	void render();
 	void clean();
 
+	static int level;
 	static bool isRunning;
 	static SDL_Event event;
 	static SDL_Renderer* renderer;

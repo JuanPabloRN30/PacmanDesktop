@@ -8,6 +8,7 @@
 #include "TileComponent.h"
 #include "UILabel.h"
 #include "ScoreComponent.h"
+#include "LifeComponent.h"
 
 // GHOST
 #include "RandomMovementComponent.h"

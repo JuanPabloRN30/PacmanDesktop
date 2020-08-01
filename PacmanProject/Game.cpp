@@ -79,6 +79,7 @@ bool Game::init()
 	pacman.addComponent<KeyBoardController>();
 	pacman.addComponent<ColliderComponent>("player");
 	pacman.addComponent<ScoreComponent>();
+	pacman.addComponent<LifeComponent>(pacmanFile.c_str());
 	pacman.addGroup(groupPlayer);
 
 	// GHOST
@@ -87,13 +88,13 @@ bool Game::init()
 	cyanGhost.addComponent<RandomMovementComponent>();
 	cyanGhost.addComponent<ColliderComponent>("enemy");
 	cyanGhost.addGroup(groupEnemies);
-
+	
 	orangeGhost.addComponent<TransformComponent>(120, 0);
 	orangeGhost.addComponent<GhostSpriteComponent>("orange_ghost.png", true);
 	orangeGhost.addComponent<RandomMovementComponent>();
 	orangeGhost.addComponent<ColliderComponent>("enemy");
 	orangeGhost.addGroup(groupEnemies);
-
+	
 	pinkGhost.addComponent<TransformComponent>(180, 0);
 	pinkGhost.addComponent<GhostSpriteComponent>("pink_ghost.png", true);
 	pinkGhost.addComponent<RandomMovementComponent>();
@@ -160,6 +161,19 @@ void Game::update()
 			c->destroy();
 		}
 	}
+
+	for (auto& e : enemies) {
+		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), e->getComponent<ColliderComponent>())) {
+			pacman.getComponent<LifeComponent>().loseLife();
+			pacman.getComponent<TransformComponent>().reset();
+			cyanGhost.getComponent<TransformComponent>().reset();
+			orangeGhost.getComponent<TransformComponent>().reset();
+			pinkGhost.getComponent<TransformComponent>().reset();
+			redGhost.getComponent<TransformComponent>().reset();
+		}
+	}
+
+	if (!pacman.getComponent<LifeComponent>().isAlive()) isRunning = false;
 
 }
 
