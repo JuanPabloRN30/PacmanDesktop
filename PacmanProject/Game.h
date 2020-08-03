@@ -20,7 +20,12 @@ public:
 	void render();
 	void clean();
 
+	void saveScore();
+	void loadHighestScore();
+
+	static int highScore;
 	static int level;
+	static const char* scoreFilePath;
 	static bool isRunning;
 	static SDL_Event event;
 	static SDL_Renderer* renderer;
@@ -32,7 +37,8 @@ public:
 		groupPlayer,
 		groupEnemies,
 		groupColliders,
-		groupCookies
+		groupCookies,
+		groupLabels
 	};
 
 private:
