@@ -148,14 +148,10 @@
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ECS.cpp" />
-    <ClCompile Include="GhostSpriteComponent.cpp" />
-    <ClCompile Include="LifeComponent.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ScoreComponent.cpp" />
     <ClCompile Include="TextureManager.cpp" />
-    <ClCompile Include="UILabel.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +167,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="cleanup.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="PowerComponent.h" />
     <ClInclude Include="RandomMovementComponent.h" />
     <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="TileComponent.h" />
@@ -182,17 +179,11 @@
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="board.png" />
-    <Image Include="boardv2.png" />
     <Image Include="collider.png" />
     <Image Include="cookie.png" />
+    <Image Include="cookiePower.png" />
     <Image Include="cyan_ghost.png" />
-    <Image Include="down_left_corner.png" />
-    <Image Include="down_right_corner.png" />
-    <Image Include="down_wall.png" />
     <Image Include="emptySpace.png" />
-    <Image Include="ghosts.png" />
-    <Image Include="left_wall.png" />
     <Image Include="orange_ghost.png" />
     <Image Include="pacmanboardv1.png" />
     <Image Include="pacmanboardv2.png" />
@@ -200,14 +191,10 @@
     <Image Include="pink_ghost.png" />
     <Image Include="red_ghost.png" />
     <Image Include="right_wall.png" />
-    <Image Include="up_left_corner.png" />
-    <Image Include="up_right_corner.png" />
-    <Image Include="up_wall.png" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="map.map" />
-    <Text Include="pacmanboardv1t.txt" />
-    <Text Include="pacmanboardv2t.txt" />
+    <Text Include="scores.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

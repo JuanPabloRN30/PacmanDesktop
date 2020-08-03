@@ -36,19 +36,7 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GhostSpriteComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AssetManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UILabel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="LifeComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,42 +104,15 @@
     <ClInclude Include="LifeComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PowerComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="ghosts.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="board.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="boardv2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="down_wall.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="left_wall.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="right_wall.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="up_wall.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="emptySpace.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="down_left_corner.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="down_right_corner.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="up_left_corner.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="up_right_corner.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="pacmanv3.png">
@@ -181,15 +142,15 @@
     <Image Include="collider.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="cookiePower.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="pacmanboardv1t.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="pacmanboardv2t.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="map.map">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="scores.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

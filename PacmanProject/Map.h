@@ -11,6 +11,7 @@ public:
 	void addTile(int srcX, int srcY, int xpos, int ypos);
 	void addTileCollider(int xpos, int ypos);
 	void addCookieTile(int xpos, int ypos);
+	void addPowerCookieTile(int xpos, int ypos);
 
 private:
 	const char* mapFilePath;

@@ -7,12 +7,18 @@
 #include "Animation.h"
 #include <map>
 
+class AnimationTag {
+public:
+	static const int move = 0;
+};
+
 class SpriteComponent : public Component
 {
 protected:
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;
 	TransformComponent* transform;
+
 	bool animated = false;
 	int frames = 0;
 	int speed = 100;
@@ -20,9 +26,11 @@ protected:
 
 public:
 
-	int animIndex = 0;
-	std::map<const char*, Animation> animations;
+	int animationTag;
+	int animIndexX = 0;
+	int animIndexY = 0;
 	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
+	std::map<int, Animation> animations;
 
 	SpriteComponent() = default;
 
@@ -34,8 +42,8 @@ public:
 		setTexture(path);
 		animated = isAnimated;
 
-		Animation move = Animation(0, 3, 100);
-		animations.emplace("Move", move);
+		Animation move = Animation(0, 0, 3, 100);
+		animations.emplace(AnimationTag::move, move);
 	}
 
 	~SpriteComponent() {
@@ -53,7 +61,8 @@ public:
 		srcRect.x = srcRect.y = 0;
 		srcRect.h = transform->height;
 		srcRect.w = transform->width;
-		Play("Move");
+		
+		setAnimation(AnimationTag::move);
 	}
 
 	void update() override {
@@ -63,7 +72,7 @@ public:
 			srcRect.y = srcRect.h * srcY + (5 * srcY);
 		}
 
-		srcRect.x = animIndex * transform->width;
+		srcRect.x = animIndexX * transform->width;
 
 		destRect.x = static_cast<int>(transform->position.x);
 		destRect.y = static_cast<int>(transform->position.y);
@@ -79,9 +88,13 @@ public:
 		angle = a;
 	}
 
-	void Play(const char* animName) {
-		animIndex = animations[animName].index;
-		frames = animations[animName].frames;
-		speed = animations[animName].speed;
+	void setAnimation(int tag) {
+		animationTag = tag;
+		animIndexX = animations[animationTag].indexX;
+		frames = animations[animationTag].frames;
+		speed = animations[animationTag].speed;
+
+		srcRect.x = animations[animationTag].indexX;
+		srcRect.y = animations[animationTag].indexY;
 	}
 };

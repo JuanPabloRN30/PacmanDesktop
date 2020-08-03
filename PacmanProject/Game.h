@@ -38,6 +38,7 @@ public:
 		groupEnemies,
 		groupColliders,
 		groupCookies,
+		groupPowerCookies,
 		groupLabels
 	};
 

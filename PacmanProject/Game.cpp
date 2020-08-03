@@ -91,24 +91,28 @@ bool Game::init()
 	cyanGhost.addComponent<GhostSpriteComponent>("cyan_ghost.png", true);
 	cyanGhost.addComponent<RandomMovementComponent>();
 	cyanGhost.addComponent<ColliderComponent>("enemy");
+	cyanGhost.addComponent<ScoreComponent>(200);
 	cyanGhost.addGroup(groupEnemies);
 	
 	orangeGhost.addComponent<TransformComponent>(120, 0);
 	orangeGhost.addComponent<GhostSpriteComponent>("orange_ghost.png", true);
 	orangeGhost.addComponent<RandomMovementComponent>();
 	orangeGhost.addComponent<ColliderComponent>("enemy");
+	orangeGhost.addComponent<ScoreComponent>(200);
 	orangeGhost.addGroup(groupEnemies);
 	
 	pinkGhost.addComponent<TransformComponent>(180, 0);
 	pinkGhost.addComponent<GhostSpriteComponent>("pink_ghost.png", true);
 	pinkGhost.addComponent<RandomMovementComponent>();
 	pinkGhost.addComponent<ColliderComponent>("enemy");
+	pinkGhost.addComponent<ScoreComponent>(200);
 	pinkGhost.addGroup(groupEnemies);
 
 	redGhost.addComponent<TransformComponent>(240, 0);
 	redGhost.addComponent<GhostSpriteComponent>("red_ghost.png", true);
 	redGhost.addComponent<RandomMovementComponent>();
 	redGhost.addComponent<ColliderComponent>("enemy");
+	redGhost.addComponent<ScoreComponent>(200);
 	redGhost.addGroup(groupEnemies);
 
 	SDL_Color white = { 255, 255, 255, 255 };
@@ -150,6 +154,7 @@ auto& players(manager.getGroup(Game::groupPlayer));
 auto& enemies(manager.getGroup(Game::groupEnemies));
 auto& colliders(manager.getGroup(Game::groupColliders));
 auto& cookies(manager.getGroup(Game::groupCookies));
+auto& powerCookies(manager.getGroup(Game::groupPowerCookies));
 auto& labels(manager.getGroup(Game::groupLabels));
 
 void Game::update()
@@ -176,14 +181,37 @@ void Game::update()
 		}
 	}
 
+	for (auto& pc : powerCookies) {
+		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), pc->getComponent<ColliderComponent>())) {
+			for (auto& e : enemies) {
+				e->getComponent<GhostSpriteComponent>().setAnimation(GhostAnimationTag::scared);
+			}
+			pc->destroy();
+		}
+	}
+
 	for (auto& e : enemies) {
+		// check collision with enemies
 		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), e->getComponent<ColliderComponent>())) {
-			pacman.getComponent<LifeComponent>().loseLife();
-			pacman.getComponent<TransformComponent>().reset();
-			cyanGhost.getComponent<TransformComponent>().reset();
-			orangeGhost.getComponent<TransformComponent>().reset();
-			pinkGhost.getComponent<TransformComponent>().reset();
-			redGhost.getComponent<TransformComponent>().reset();
+			if (e->getComponent<GhostSpriteComponent>().animationTag == GhostAnimationTag::scared) {
+				e->getComponent<TransformComponent>().reset();
+				e->getComponent<GhostSpriteComponent>().setAnimation(GhostAnimationTag::move);
+				pacman.getComponent<ScoreComponent>().addEntityScore(e->getComponent<ScoreComponent>().score);
+				for (auto& e : enemies) {
+					e->getComponent<ScoreComponent>().setScore(e->getComponent<ScoreComponent>().score * 2);
+				}
+			}
+			else {
+				pacman.getComponent<LifeComponent>().loseLife();
+				pacman.getComponent<TransformComponent>().reset();
+				for (auto& e : enemies) {
+					e->getComponent<TransformComponent>().reset();
+				}
+			}
+		}
+
+		if (e->getComponent<GhostSpriteComponent>().animationTag == GhostAnimationTag::move) {
+			e->getComponent<ScoreComponent>().setScore(200);
 		}
 	}
 
@@ -201,6 +229,7 @@ void Game::render()
 	for (auto& t : tiles) t->draw();
 	//for (auto& c : colliders) c->draw();
 	for (auto& c : cookies) c->draw();
+	for (auto& pc : powerCookies) pc->draw();
 	for (auto& p : players) p->draw();
 	for (auto& e : enemies) e->draw();
 	SDL_RenderPresent(renderer);
