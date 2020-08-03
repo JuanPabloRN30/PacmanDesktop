@@ -17,6 +17,7 @@ protected:
 	int frames = 0;
 	int speed = 100;
 	double angle = 0;
+	const char* animName;
 
 public:
 
@@ -53,7 +54,8 @@ public:
 		srcRect.x = srcRect.y = 0;
 		srcRect.h = transform->height;
 		srcRect.w = transform->width;
-		Play("Move");
+		
+		setAnimation("Move");
 	}
 
 	void update() override {
@@ -79,7 +81,8 @@ public:
 		angle = a;
 	}
 
-	void Play(const char* animName) {
+	void setAnimation(const char* name) {
+		animName = name;
 		animIndex = animations[animName].index;
 		frames = animations[animName].frames;
 		speed = animations[animName].speed;
