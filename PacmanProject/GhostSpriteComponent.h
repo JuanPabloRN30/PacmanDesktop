@@ -20,8 +20,8 @@ public:
 		setTexture(path);
 		animated = isAnimated;
 
-		Animation move = Animation(0, 2, 100);
-		Animation scared = Animation(4, 2, 300);
+		Animation move = Animation(0, 0, 2, 100);
+		Animation scared = Animation(4, 0, 2, 300);
 
 		animations.emplace(GhostAnimationTag::move, move);
 		animations.emplace(GhostAnimationTag::scared, scared);
@@ -37,6 +37,7 @@ public:
 			animated = false;
 			if (static_cast<int>(updateBeginMiliSec - scaredBeginSeconds) >= scaredBeginAnimationSeconds) {
 				animated = true;
+				// TODO: PENDING ANIMATION
 			}
 			if (static_cast<int>(updateBeginMiliSec - scaredBeginSeconds) >= scaredDuration) {
 				setAnimation(GhostAnimationTag::move);
@@ -44,21 +45,18 @@ public:
 		}
 
 		if (animationTag == GhostAnimationTag::move) {
-			if (transform->getDirection() == TransformComponent::direction::left) animIndex = 0;
-			if (transform->getDirection() == TransformComponent::direction::up) animIndex = 1;
-			if (transform->getDirection() == TransformComponent::direction::right) animIndex = 2;
-			if (transform->getDirection() == TransformComponent::direction::down) animIndex = 3;
+			if (transform->getDirection() == TransformComponent::direction::left) animIndexX = 0;
+			if (transform->getDirection() == TransformComponent::direction::up) animIndexX = 1;
+			if (transform->getDirection() == TransformComponent::direction::right) animIndexX = 2;
+			if (transform->getDirection() == TransformComponent::direction::down) animIndexX = 3;
 		}
 
 		if (animated) {
 			int srcY = static_cast<int>((updateBeginMiliSec / speed) % frames);
 			srcRect.y = srcRect.h * srcY + (5 * srcY);
-			if (animationTag == GhostAnimationTag::scared) {
-				std::cout << animated << " " << srcRect.x << " " << srcRect.y << std::endl;
-			}
 		}
 
-		srcRect.x = animIndex * transform->width + (5 * animIndex);
+		srcRect.x = animIndexX * transform->width + (5 * animIndexX);
 
 		destRect.x = static_cast<int>(transform->position.x);
 		destRect.y = static_cast<int>(transform->position.y);
@@ -69,8 +67,11 @@ public:
 	void setAnimation(int tag) {
 		animationTag = tag;
 		if (animationTag == GhostAnimationTag::scared) scaredBeginSeconds = SDL_GetTicks();
-		animIndex = animations[animationTag].index;
+		animIndexX = animations[animationTag].indexX;
 		frames = animations[animationTag].frames;
 		speed = animations[animationTag].speed;
+
+		srcRect.x = animations[animationTag].indexX;
+		srcRect.y = animations[animationTag].indexY;
 	}
 };

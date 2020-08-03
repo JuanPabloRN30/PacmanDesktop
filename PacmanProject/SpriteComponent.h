@@ -23,12 +23,12 @@ protected:
 	int frames = 0;
 	int speed = 100;
 	double angle = 0;
-	const char* animName;
 
 public:
 
 	int animationTag;
-	int animIndex = 0;
+	int animIndexX = 0;
+	int animIndexY = 0;
 	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 	std::map<int, Animation> animations;
 
@@ -42,7 +42,7 @@ public:
 		setTexture(path);
 		animated = isAnimated;
 
-		Animation move = Animation(0, 3, 100);
+		Animation move = Animation(0, 0, 3, 100);
 		animations.emplace(AnimationTag::move, move);
 	}
 
@@ -72,7 +72,7 @@ public:
 			srcRect.y = srcRect.h * srcY + (5 * srcY);
 		}
 
-		srcRect.x = animIndex * transform->width;
+		srcRect.x = animIndexX * transform->width;
 
 		destRect.x = static_cast<int>(transform->position.x);
 		destRect.y = static_cast<int>(transform->position.y);
@@ -90,8 +90,11 @@ public:
 
 	void setAnimation(int tag) {
 		animationTag = tag;
-		animIndex = animations[animationTag].index;
+		animIndexX = animations[animationTag].indexX;
 		frames = animations[animationTag].frames;
 		speed = animations[animationTag].speed;
+
+		srcRect.x = animations[animationTag].indexX;
+		srcRect.y = animations[animationTag].indexY;
 	}
 };

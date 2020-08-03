@@ -184,7 +184,6 @@
     <Image Include="cookiePower.png" />
     <Image Include="cyan_ghost.png" />
     <Image Include="emptySpace.png" />
-    <Image Include="ghosts.png" />
     <Image Include="orange_ghost.png" />
     <Image Include="pacmanboardv1.png" />
     <Image Include="pacmanboardv2.png" />
@@ -195,6 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="map.map" />
+    <Text Include="scores.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

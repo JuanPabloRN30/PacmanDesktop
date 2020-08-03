@@ -14,16 +14,16 @@ public:
 		transform = &entity->getComponent<TransformComponent>();
 
 		source = transform->position;
-		dest.x = rand() % Game::SCREEN_HEIGHT;
-		dest.y = rand() % Game::SCREEN_WIDTH;
+		dest.x = rand() % Game::SCREEN_WIDTH;
+		dest.y = rand() % Game::SCREEN_HEIGHT;
 	}
 
 	void update() override {
 		source = transform->position;
 
 		if (source.x == dest.x && source.y == dest.y) {
-			dest.x = rand() % Game::SCREEN_HEIGHT;
-			dest.y = rand() % Game::SCREEN_WIDTH;
+			dest.x = rand() % Game::SCREEN_WIDTH;
+			dest.y = rand() % Game::SCREEN_HEIGHT;
 		}
 
 		if (source.x < dest.x) {

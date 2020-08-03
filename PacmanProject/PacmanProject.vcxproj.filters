@@ -109,9 +109,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="ghosts.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="right_wall.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -151,6 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="map.map">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="scores.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
