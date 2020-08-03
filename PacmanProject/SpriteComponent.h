@@ -7,12 +7,18 @@
 #include "Animation.h"
 #include <map>
 
+class AnimationTag {
+public:
+	static const int move = 0;
+};
+
 class SpriteComponent : public Component
 {
 protected:
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;
 	TransformComponent* transform;
+
 	bool animated = false;
 	int frames = 0;
 	int speed = 100;
@@ -21,9 +27,10 @@ protected:
 
 public:
 
+	int animationTag;
 	int animIndex = 0;
-	std::map<const char*, Animation> animations;
 	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
+	std::map<int, Animation> animations;
 
 	SpriteComponent() = default;
 
@@ -36,7 +43,7 @@ public:
 		animated = isAnimated;
 
 		Animation move = Animation(0, 3, 100);
-		animations.emplace("Move", move);
+		animations.emplace(AnimationTag::move, move);
 	}
 
 	~SpriteComponent() {
@@ -55,7 +62,7 @@ public:
 		srcRect.h = transform->height;
 		srcRect.w = transform->width;
 		
-		setAnimation("Move");
+		setAnimation(AnimationTag::move);
 	}
 
 	void update() override {
@@ -81,10 +88,10 @@ public:
 		angle = a;
 	}
 
-	void setAnimation(const char* name) {
-		animName = name;
-		animIndex = animations[animName].index;
-		frames = animations[animName].frames;
-		speed = animations[animName].speed;
+	void setAnimation(int tag) {
+		animationTag = tag;
+		animIndex = animations[animationTag].index;
+		frames = animations[animationTag].frames;
+		speed = animations[animationTag].speed;
 	}
 };

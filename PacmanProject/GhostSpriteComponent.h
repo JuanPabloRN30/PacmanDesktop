@@ -4,22 +4,27 @@
 #include "cleanup.h"
 #include <algorithm>
 
+class GhostAnimationTag : public AnimationTag {
+public:
+	static const int scared = 2;
+};
+
 class GhostSpriteComponent : public SpriteComponent
 {
 public:
-	int scaredDuration = 5000;
-	long long scaredBeginSeconds;
+	int scaredDuration = 10000;
+	int scaredBeginSeconds;
 	int scaredBeginAnimationSeconds = 2000;
-	int scaredBlinkSeconds = 5000 / 2000;
 
 	GhostSpriteComponent(const char* path, bool isAnimated) {
 		setTexture(path);
 		animated = isAnimated;
 
 		Animation move = Animation(0, 2, 100);
-		Animation scared = Animation(4, 2, 1000);
-		animations.emplace("Move", move);
-		animations.emplace("Scared", scared);
+		Animation scared = Animation(4, 2, 300);
+
+		animations.emplace(GhostAnimationTag::move, move);
+		animations.emplace(GhostAnimationTag::scared, scared);
 	}
 
 	~GhostSpriteComponent(){
@@ -27,29 +32,32 @@ public:
 	}
 
 	void update() override {
-		int srcY = static_cast<int>((SDL_GetTicks() / speed) % frames);
-
-		if (animated) {
-			srcRect.y = srcRect.h * srcY + (5 * srcY);
-		}
-
-		if (animIndex == 4) { // scared
+		auto updateBeginMiliSec = SDL_GetTicks();
+		if (animationTag == GhostAnimationTag::scared) { // scared
 			animated = false;
-			if (static_cast<int>(SDL_GetTicks() - scaredBeginSeconds) >= scaredBeginAnimationSeconds) {
+			if (static_cast<int>(updateBeginMiliSec - scaredBeginSeconds) >= scaredBeginAnimationSeconds) {
 				animated = true;
-				speed = std::max(1, speed - scaredBlinkSeconds);
 			}
-			if (static_cast<int>(SDL_GetTicks() - scaredBeginSeconds) >= scaredDuration) {
-				setAnimation("Move");
+			if (static_cast<int>(updateBeginMiliSec - scaredBeginSeconds) >= scaredDuration) {
+				setAnimation(GhostAnimationTag::move);
 			}
 		}
 
-		if (animIndex != 4) {
+		if (animationTag == GhostAnimationTag::move) {
 			if (transform->getDirection() == TransformComponent::direction::left) animIndex = 0;
 			if (transform->getDirection() == TransformComponent::direction::up) animIndex = 1;
 			if (transform->getDirection() == TransformComponent::direction::right) animIndex = 2;
 			if (transform->getDirection() == TransformComponent::direction::down) animIndex = 3;
 		}
+
+		if (animated) {
+			int srcY = static_cast<int>((updateBeginMiliSec / speed) % frames);
+			srcRect.y = srcRect.h * srcY + (5 * srcY);
+			if (animationTag == GhostAnimationTag::scared) {
+				std::cout << animated << " " << srcRect.x << " " << srcRect.y << std::endl;
+			}
+		}
+
 		srcRect.x = animIndex * transform->width + (5 * animIndex);
 
 		destRect.x = static_cast<int>(transform->position.x);
@@ -58,11 +66,11 @@ public:
 		destRect.h = transform->height * transform->scale;
 	}
 
-	void setAnimation(const char* name) {
-		if (name == "Scared") scaredBeginSeconds = SDL_GetTicks();
-		animName = name;
-		animIndex = animations[animName].index;
-		frames = animations[animName].frames;
-		speed = animations[animName].speed;
+	void setAnimation(int tag) {
+		animationTag = tag;
+		if (animationTag == GhostAnimationTag::scared) scaredBeginSeconds = SDL_GetTicks();
+		animIndex = animations[animationTag].index;
+		frames = animations[animationTag].frames;
+		speed = animations[animationTag].speed;
 	}
 };

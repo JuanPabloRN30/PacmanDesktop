@@ -18,4 +18,8 @@ public:
 	void addEntityScore(int es) {
 		entityScore += es;
 	}
+
+	void setScore(int s) {
+		score = s;
+	}
 };
