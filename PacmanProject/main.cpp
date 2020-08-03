@@ -29,7 +29,7 @@ int main(int, char**) {
 			SDL_Delay(frameDelay - frameTime);
 		}
 	}
-
+	game->saveScore();
 	game->clean();
 
 	return 0;

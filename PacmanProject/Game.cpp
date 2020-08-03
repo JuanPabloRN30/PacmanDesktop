@@ -11,12 +11,14 @@
 #include "cleanup.h"
 #include "AssetManager.h"
 #include <sstream>
+#include <fstream>
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 Map* map;
 
 bool Game::isRunning = false;
+const char* Game::scoreFilePath = "scores.txt";
 
 Manager manager;
 auto& pacman(manager.addEntity());
@@ -28,6 +30,7 @@ auto& redGhost(manager.addEntity());
 AssetManager* Game::assets = new AssetManager();
 
 auto& label(manager.addEntity());
+auto& highScore(manager.addEntity());
 
 
 Game::Game() {}
@@ -195,4 +198,24 @@ void Game::clean()
 	cleanup(renderer, window);
 	IMG_Quit();
 	SDL_Quit();
+}
+
+void Game::saveScore()
+{
+	int score = pacman.getComponent<ScoreComponent>().score;
+	std::fstream scoreFile(Game::scoreFilePath);
+
+	if (score > highScore) {
+		scoreFile << score;
+	}
+
+	scoreFile.close();
+}
+
+void Game::loadHighestScore()
+{
+	std::fstream scoreFile(Game::scoreFilePath);
+	scoreFile >> highScore;
+
+	scoreFile.close();
 }
