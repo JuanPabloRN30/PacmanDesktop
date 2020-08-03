@@ -18,6 +18,7 @@ SDL_Event Game::event;
 Map* map;
 
 bool Game::isRunning = false;
+int Game::highScore;
 const char* Game::scoreFilePath = "scores.txt";
 
 Manager manager;
@@ -30,7 +31,7 @@ auto& redGhost(manager.addEntity());
 AssetManager* Game::assets = new AssetManager();
 
 auto& label(manager.addEntity());
-auto& highScore(manager.addEntity());
+auto& highScoreLabel(manager.addEntity());
 
 
 Game::Game() {}
@@ -111,7 +112,16 @@ bool Game::init()
 	redGhost.addGroup(groupEnemies);
 
 	SDL_Color white = { 255, 255, 255, 255 };
-	label.addComponent<UILabel>(10, 10, "Test String", "arial", white);
+	std::stringstream ss;
+	std::stringstream ss1;
+	ss << "1UP " << pacman.getComponent<ScoreComponent>().entityScore;
+	label.addComponent<UILabel>(Game::SCREEN_WIDTH / 4, 0, ss.str().c_str(), "arial", white);
+	label.addGroup(groupLabels);
+
+	loadHighestScore();
+	ss1 << "High score: " << highScore;
+	highScoreLabel.addComponent<UILabel>(Game::SCREEN_WIDTH / 2, 0, ss1.str().c_str(), "arial", white);
+	highScoreLabel.addGroup(groupLabels);
 
 	return true;
 }
@@ -140,6 +150,7 @@ auto& players(manager.getGroup(Game::groupPlayer));
 auto& enemies(manager.getGroup(Game::groupEnemies));
 auto& colliders(manager.getGroup(Game::groupColliders));
 auto& cookies(manager.getGroup(Game::groupCookies));
+auto& labels(manager.getGroup(Game::groupLabels));
 
 void Game::update()
 {
@@ -176,20 +187,22 @@ void Game::update()
 		}
 	}
 
-	if (!pacman.getComponent<LifeComponent>().isAlive()) isRunning = false;
+	if (!pacman.getComponent<LifeComponent>().isAlive()) {
+		isRunning = false;
+		saveScore();
+	}
 
 }
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
+	for (auto& l : labels) l->draw();
 	for (auto& t : tiles) t->draw();
 	//for (auto& c : colliders) c->draw();
 	for (auto& c : cookies) c->draw();
 	for (auto& p : players) p->draw();
 	for (auto& e : enemies) e->draw();
-
-	label.draw();
 	SDL_RenderPresent(renderer);
 }
 
@@ -202,8 +215,8 @@ void Game::clean()
 
 void Game::saveScore()
 {
-	int score = pacman.getComponent<ScoreComponent>().score;
-	std::fstream scoreFile(Game::scoreFilePath);
+	int score = pacman.getComponent<ScoreComponent>().entityScore;
+	std::fstream scoreFile(Game::scoreFilePath, std::fstream::out);
 
 	if (score > highScore) {
 		scoreFile << score;
@@ -214,8 +227,7 @@ void Game::saveScore()
 
 void Game::loadHighestScore()
 {
-	std::fstream scoreFile(Game::scoreFilePath);
+	std::fstream scoreFile(Game::scoreFilePath, std::fstream::in);
 	scoreFile >> highScore;
-
 	scoreFile.close();
 }

@@ -37,7 +37,8 @@ public:
 		groupPlayer,
 		groupEnemies,
 		groupColliders,
-		groupCookies
+		groupCookies,
+		groupLabels
 	};
 
 private:
