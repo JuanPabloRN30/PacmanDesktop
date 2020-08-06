@@ -23,16 +23,14 @@ public:
 		tag = t;
 	}
 
-	ColliderComponent(std::string t, int xpos, int ypos, int size, const char* path) {
+	ColliderComponent(std::string t, int srcX, int srcY, int xpos, int ypos, int tsize, const char* path, SDL_Rect coll) {
 		tag = t;
-		collider.x = xpos;
-		collider.y = ypos;
-		collider.h = collider.w = size;
-		
-		tex = TextureManager::LoadTexture(path);
 
-		srcRect = { 0, 0, 60, 60 };
-		destRect = { collider.x, collider.y, collider.w, collider.h };
+		collider = { coll.x + xpos, coll.y + ypos, coll.w, coll.h};
+		srcRect = { srcX, srcY, tsize, tsize};
+		destRect = { collider.x, collider.y, collider.w, collider.h};
+
+		tex = TextureManager::LoadTexture(path);
 	}
 
 	ColliderComponent(std::string t, int xpos, int ypos, int size) {

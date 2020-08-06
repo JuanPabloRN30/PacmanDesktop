@@ -185,14 +185,14 @@
     <Image Include="cyan_ghost.png" />
     <Image Include="emptySpace.png" />
     <Image Include="orange_ghost.png" />
-    <Image Include="pacmanboardv1.png" />
-    <Image Include="pacmanboardv2.png" />
+    <Image Include="pacmanboardv3.png" />
     <Image Include="pacmanv3.png" />
     <Image Include="pink_ghost.png" />
     <Image Include="red_ghost.png" />
     <Image Include="right_wall.png" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="colliders.txt" />
     <Text Include="map.map" />
     <Text Include="scores.txt" />
   </ItemGroup>

@@ -74,7 +74,7 @@ bool Game::init()
 	const std::string resPath = getResourcePath("PacmanProject");
 	const std::string pacmanFile = resPath + "pacmanv3.png";
 
-	map = new Map("pacmanboardv2.png", 4, 16);
+	map = new Map("pacmanboardv3.png", 4, 16);
 	map->loadMap("map.map", 13, 7);
 
 	// PACMAN
