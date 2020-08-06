@@ -133,16 +133,13 @@
     <Image Include="red_ghost.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="pacmanboardv1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="pacmanboardv2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="collider.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="cookiePower.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pacmanboardv3.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -151,6 +148,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="scores.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="colliders.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

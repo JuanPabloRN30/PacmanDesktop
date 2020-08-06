@@ -2,6 +2,8 @@
 #include "Game.h"
 #include <fstream>
 #include <iostream>
+#include <sstream>
+#include <map>
 #include "ECS.h"
 #include "TileComponent.h"
 #include "ColliderComponent.h"
@@ -27,6 +29,7 @@ void Map::loadMap(std::string path, int sizeX, int sizeY)
 
 	int srcX, srcY;
 
+	// tiles
 	for (int y = 0; y < sizeY; y++) {
 		for (int x = 0; x < sizeX; x++) {
 			mapFile.get(c);
@@ -40,11 +43,21 @@ void Map::loadMap(std::string path, int sizeX, int sizeY)
 
 	mapFile.ignore();
 
+	// colliders
+	std::string collidersPath = "colliders.txt";
+	int nColliders = 7;
+	int tileIDX, tileIDY;
+	std::map<std::pair<int, int>, SDL_Rect> colliders = loadColliders(collidersPath, nColliders);
 	for (int y = 0; y < sizeY; y++) {
 		for (int x = 0; x < sizeX; x++) {
 			mapFile.get(c);
-			if (c == '1') {
-				addTileCollider(x, y);
+			tileIDY = atoi(&c);
+			srcY = tileIDY * tileSize;
+			mapFile.get(c);
+			tileIDX = atoi(&c);
+			srcX = tileIDX * tileSize;
+			if (srcX != 0 || srcY != 0) {
+				addTileCollider(srcX, srcY, x * scaledSize, y * scaledSize, colliders[{tileIDY, tileIDX}]);
 			}
 			mapFile.ignore();
 		}
@@ -52,6 +65,7 @@ void Map::loadMap(std::string path, int sizeX, int sizeY)
 
 	mapFile.ignore();
 
+	// cookies and powers
 	for (int y = 0; y < sizeY; y++) {
 		for (int x = 0; x < sizeX; x++) {
 			mapFile.get(c);
@@ -66,6 +80,34 @@ void Map::loadMap(std::string path, int sizeX, int sizeY)
 	mapFile.close();
 }
 
+std::map<std::pair<int , int>, SDL_Rect> Map::loadColliders(std::string path, int nColliders)
+{
+	char comma;
+	int srcX, srcY, tilePosition;
+	int x, y;
+	int w, h;
+	std::fstream colliderFile;
+	colliderFile.open(path);
+
+	std::map<std::pair<int, int>, SDL_Rect> colliderInfo;
+	std::string line;
+	for (int i = 0; i < nColliders; i++) {
+		std::getline(colliderFile, line);
+		std::stringstream ss(line);
+		ss >> tilePosition;
+		srcY = tilePosition / 10;
+		srcX = tilePosition % 10;
+		std::getline(colliderFile, line);
+		std::stringstream ss1(line);
+		ss1 >> x >> comma >> y >> comma >> w >> comma >> h;
+		colliderInfo[{srcY, srcX}] = { x * mapScale, y * mapScale, w * mapScale, h * mapScale};
+	}
+
+	colliderFile.close();
+
+	return colliderInfo;
+}
+
 void Map::addTile(int srcX, int srcY, int xpos, int ypos)
 {
 	auto& tile(manager.addEntity());
@@ -73,10 +115,10 @@ void Map::addTile(int srcX, int srcY, int xpos, int ypos)
 	tile.addGroup(Game::groupMap);
 }
 
-void Map::addTileCollider(int xpos, int ypos)
+void Map::addTileCollider(int srcX, int srcY, int xpos, int ypos, SDL_Rect collider)
 {
 	auto& tcol(manager.addEntity());
-	tcol.addComponent<ColliderComponent>("map", xpos * scaledSize, ypos * scaledSize, scaledSize, "collider.png");
+	tcol.addComponent<ColliderComponent>("map", srcX, srcY, xpos, ypos, tileSize, mapFilePath, collider);
 	tcol.addGroup(Game::groupColliders);
 }
 
@@ -99,7 +141,6 @@ void Map::addPowerCookieTile(int xpos, int ypos)
 	const int cookieTileSize = 3;
 	int x = (scaledSize / 2) + (xpos * scaledSize);
 	int y = (scaledSize / 2) + (ypos * scaledSize);
-
 
 	auto& tcookie(manager.addEntity());
 	tcookie.addComponent<ColliderComponent>("cookie", x, y, cookieTileSize * mapScale);
