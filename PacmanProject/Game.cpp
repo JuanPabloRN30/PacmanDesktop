@@ -72,13 +72,13 @@ bool Game::init()
 
 	int iW = 60, iH = 60;
 	const std::string resPath = getResourcePath("PacmanProject");
-	const std::string pacmanFile = resPath + "pacmanv3.png";
+	const std::string pacmanFile = resPath + "pacman.png";
 
-	map = new Map("pacmanboardv3.png", 4, 16);
+	map = new Map("pacmanboardv5.png", 2, 17);
 	map->loadMap("map.map", 13, 7);
 
 	// PACMAN
-	pacman.addComponent<TransformComponent>(65, 65);
+	pacman.addComponent<TransformComponent>(37, 37, 16, 16, 2);
 	pacman.addComponent<SpriteComponent>(pacmanFile.c_str(), true);
 	pacman.addComponent<KeyBoardController>();
 	pacman.addComponent<ColliderComponent>("player");
@@ -87,28 +87,28 @@ bool Game::init()
 	pacman.addGroup(groupPlayer);
 
 	// GHOST
-	cyanGhost.addComponent<TransformComponent>(60, 0);
+	cyanGhost.addComponent<TransformComponent>(60, 0, 16, 16, 2);
 	cyanGhost.addComponent<GhostSpriteComponent>("cyan_ghost.png", true);
 	cyanGhost.addComponent<RandomMovementComponent>();
 	cyanGhost.addComponent<ColliderComponent>("enemy");
 	cyanGhost.addComponent<ScoreComponent>(200);
 	cyanGhost.addGroup(groupEnemies);
 	
-	orangeGhost.addComponent<TransformComponent>(120, 0);
+	orangeGhost.addComponent<TransformComponent>(120, 0, 16, 16, 2);
 	orangeGhost.addComponent<GhostSpriteComponent>("orange_ghost.png", true);
 	orangeGhost.addComponent<RandomMovementComponent>();
 	orangeGhost.addComponent<ColliderComponent>("enemy");
 	orangeGhost.addComponent<ScoreComponent>(200);
 	orangeGhost.addGroup(groupEnemies);
 	
-	pinkGhost.addComponent<TransformComponent>(180, 0);
+	pinkGhost.addComponent<TransformComponent>(180, 0, 16, 16, 2);
 	pinkGhost.addComponent<GhostSpriteComponent>("pink_ghost.png", true);
 	pinkGhost.addComponent<RandomMovementComponent>();
 	pinkGhost.addComponent<ColliderComponent>("enemy");
 	pinkGhost.addComponent<ScoreComponent>(200);
 	pinkGhost.addGroup(groupEnemies);
 
-	redGhost.addComponent<TransformComponent>(240, 0);
+	redGhost.addComponent<TransformComponent>(240, 0, 16, 16, 2);
 	redGhost.addComponent<GhostSpriteComponent>("red_ghost.png", true);
 	redGhost.addComponent<RandomMovementComponent>();
 	redGhost.addComponent<ColliderComponent>("enemy");

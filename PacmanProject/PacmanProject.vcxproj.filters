@@ -115,9 +115,6 @@
     <Image Include="emptySpace.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="pacmanv3.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="cookie.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -137,6 +134,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="cookiePower.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pacman.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="pacmanboardv3.png">
