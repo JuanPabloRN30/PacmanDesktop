@@ -69,7 +69,7 @@ public:
 		int srcY = static_cast<int>((SDL_GetTicks() / speed) % frames);
 
 		if (animated) {
-			srcRect.y = srcRect.h * srcY + (5 * srcY);
+			srcRect.y = srcRect.h * srcY + (1 * srcY);
 		}
 
 		srcRect.x = animIndexX * transform->width;

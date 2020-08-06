@@ -53,10 +53,10 @@ public:
 
 		if (animated) {
 			int srcY = static_cast<int>((updateBeginMiliSec / speed) % frames);
-			srcRect.y = srcRect.h * srcY + (5 * srcY);
+			srcRect.y = srcRect.h * srcY + (1 * srcY);
 		}
 
-		srcRect.x = animIndexX * transform->width + (5 * animIndexX);
+		srcRect.x = animIndexX * transform->width + (1 * animIndexX);
 
 		destRect.x = static_cast<int>(transform->position.x);
 		destRect.y = static_cast<int>(transform->position.y);

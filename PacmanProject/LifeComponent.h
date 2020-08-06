@@ -30,7 +30,7 @@ public:
 	void init() override {
 		transform = &entity->getComponent<TransformComponent>();
 
-		srcRect = { 0, 1 * transform->height + 5, transform->width, transform->height};
+		srcRect = { 0, 1 * transform->height + 1, transform->width, transform->height};
 	}
 
 	void draw() override {
