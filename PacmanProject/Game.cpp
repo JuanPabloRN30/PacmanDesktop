@@ -78,7 +78,9 @@ bool Game::init()
 	map->loadMap("map.map", Constants::MAP_SIZE_X, Constants::MAP_SIZE_Y);
 
 	// PACMAN
-	pacman.addComponent<TransformComponent>(3 * Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT, 3 * Constants::ENTITY_SCALE * Constants::ENTITY_HEIGHT, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
+	int pacman_init_pos_x = 1 * Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT + 1;
+	int pacman_init_pos_y = 1 * Constants::ENTITY_SCALE * Constants::ENTITY_HEIGHT + 1;
+	pacman.addComponent<TransformComponent>(pacman_init_pos_x, pacman_init_pos_y, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	pacman.addComponent<SpriteComponent>(pacmanFile.c_str(), true);
 	pacman.addComponent<KeyBoardController>();
 	pacman.addComponent<ColliderComponent>("player");
@@ -87,28 +89,36 @@ bool Game::init()
 	pacman.addGroup(groupPlayer);
 
 	// GHOST
-	cyanGhost.addComponent<TransformComponent>(60, 0, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
+	int cyanGhostInitPosX = 1 * Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT + 1;
+	int cyanGhostInitPosY = 1 * Constants::ENTITY_SCALE * Constants::ENTITY_HEIGHT + 1;
+	cyanGhost.addComponent<TransformComponent>(cyanGhostInitPosX, cyanGhostInitPosY, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	cyanGhost.addComponent<GhostSpriteComponent>("cyan_ghost.png", true);
 	cyanGhost.addComponent<RandomMovementComponent>();
 	cyanGhost.addComponent<ColliderComponent>("enemy");
 	cyanGhost.addComponent<ScoreComponent>(Constants::GHOST_SCORE);
 	cyanGhost.addGroup(groupEnemies);
 	
-	orangeGhost.addComponent<TransformComponent>(120, 0, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
+	int orangeGhostInitPosX = 1 * Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT + 1;
+	int orangeGhostInitPosY = 1 * Constants::ENTITY_SCALE * Constants::ENTITY_HEIGHT + 1;
+	orangeGhost.addComponent<TransformComponent>(orangeGhostInitPosX, orangeGhostInitPosY, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	orangeGhost.addComponent<GhostSpriteComponent>("orange_ghost.png", true);
 	orangeGhost.addComponent<RandomMovementComponent>();
 	orangeGhost.addComponent<ColliderComponent>("enemy");
 	orangeGhost.addComponent<ScoreComponent>(Constants::GHOST_SCORE);
 	orangeGhost.addGroup(groupEnemies);
 	
-	pinkGhost.addComponent<TransformComponent>(180, 0, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
+	int pinkGhostInitPosX = 1 * Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT + 1;
+	int pinkGhostInitPosY = 1 * Constants::ENTITY_SCALE * Constants::ENTITY_HEIGHT + 1;
+	pinkGhost.addComponent<TransformComponent>(pinkGhostInitPosX, pinkGhostInitPosY, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	pinkGhost.addComponent<GhostSpriteComponent>("pink_ghost.png", true);
 	pinkGhost.addComponent<RandomMovementComponent>();
 	pinkGhost.addComponent<ColliderComponent>("enemy");
 	pinkGhost.addComponent<ScoreComponent>(Constants::GHOST_SCORE);
 	pinkGhost.addGroup(groupEnemies);
 
-	redGhost.addComponent<TransformComponent>(240, 0, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
+	int redGhostInitPosX = 1 * Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT + 1;
+	int redGhostInitPosY = 1 * Constants::ENTITY_SCALE * Constants::ENTITY_HEIGHT + 1;
+	redGhost.addComponent<TransformComponent>(redGhostInitPosX, redGhostInitPosY, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	redGhost.addComponent<GhostSpriteComponent>("red_ghost.png", true);
 	redGhost.addComponent<RandomMovementComponent>();
 	redGhost.addComponent<ColliderComponent>("enemy");
@@ -159,6 +169,10 @@ auto& labels(manager.getGroup(Game::groupLabels));
 void Game::update()
 {
 	Vector2D pacmanPos = pacman.getComponent<TransformComponent>().position;
+	Vector2D cyanGhostPos = cyanGhost.getComponent<TransformComponent>().position;
+	Vector2D orangeGhostPos = orangeGhost.getComponent<TransformComponent>().position;
+	Vector2D pinkGhostPos = pinkGhost.getComponent<TransformComponent>().position;
+	Vector2D redGhostPos = redGhost.getComponent<TransformComponent>().position;
 
 	std::stringstream ss;
 	ss << "1UP " << pacman.getComponent<ScoreComponent>().entityScore;
@@ -170,6 +184,22 @@ void Game::update()
 	for (auto& c : colliders) {
 		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), c->getComponent<ColliderComponent>())) {
 			pacman.getComponent<TransformComponent>().position = pacmanPos;
+		}
+		if (Collision::AABB(cyanGhost.getComponent<ColliderComponent>(), c->getComponent<ColliderComponent>())) {
+			cyanGhost.getComponent<TransformComponent>().position = cyanGhostPos;
+			cyanGhost.getComponent<RandomMovementComponent>().updateDestinationPoint();
+		}
+		if (Collision::AABB(orangeGhost.getComponent<ColliderComponent>(), c->getComponent<ColliderComponent>())) {
+			orangeGhost.getComponent<TransformComponent>().position = orangeGhostPos;
+			orangeGhost.getComponent<RandomMovementComponent>().updateDestinationPoint();
+		}
+		if (Collision::AABB(pinkGhost.getComponent<ColliderComponent>(), c->getComponent<ColliderComponent>())) {
+			pinkGhost.getComponent<TransformComponent>().position = pinkGhostPos;
+			pinkGhost.getComponent<RandomMovementComponent>().updateDestinationPoint();
+		}
+		if (Collision::AABB(redGhost.getComponent<ColliderComponent>(), c->getComponent<ColliderComponent>())) {
+			redGhost.getComponent<TransformComponent>().position = redGhostPos;
+			redGhost.getComponent<RandomMovementComponent>().updateDestinationPoint();
 		}
 	}
 
