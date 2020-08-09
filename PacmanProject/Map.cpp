@@ -131,7 +131,7 @@ void Map::addCookieTile(int xpos, int ypos)
 	auto& tcookie(manager.addEntity());
 	tcookie.addComponent<ColliderComponent>("cookie", x, y, Constants::COOKIE_TILE_SIZE * mapScale);
 	tcookie.addComponent<TileComponent>(0, 0, x, y, Constants::COOKIE_TILE_SIZE, mapScale, "cookie.png");
-	tcookie.addComponent<ScoreComponent>(10);
+	tcookie.addComponent<ScoreComponent>(Constants::COOKIE_SCORE);
 	tcookie.addGroup(Game::groupCookies);
 }
 
@@ -141,8 +141,8 @@ void Map::addPowerCookieTile(int xpos, int ypos)
 	int y = (scaledSize / 2) + (ypos * scaledSize);
 
 	auto& tcookie(manager.addEntity());
-	tcookie.addComponent<ColliderComponent>("cookie", x, y, Constants::COOKIE_TILE_SIZE * mapScale);
+	tcookie.addComponent<ColliderComponent>("cookie", x, y, Constants::POWER_COOKIE_TILE_SIZE * mapScale);
 	tcookie.addComponent<TileComponent>(0, 0, x, y, Constants::COOKIE_TILE_SIZE, mapScale, "cookiePower.png");
-	tcookie.addComponent<ScoreComponent>(50);
+	tcookie.addComponent<ScoreComponent>(Constants::POWER_COOKIE_SCORE);
 	tcookie.addGroup(Game::groupPowerCookies);
 }

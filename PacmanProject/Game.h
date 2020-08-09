@@ -29,8 +29,6 @@ public:
 	static bool isRunning;
 	static SDL_Event event;
 	static SDL_Renderer* renderer;
-	static const int SCREEN_WIDTH = 800;
-	static const int SCREEN_HEIGHT = 800;
 	static AssetManager* assets;
 	enum groupLabels : std::size_t {
 		groupMap,

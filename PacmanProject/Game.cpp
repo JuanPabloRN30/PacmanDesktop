@@ -58,7 +58,7 @@ bool Game::init()
 
 	isRunning = true;
 
-	window = SDL_CreateWindow("Pacman game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow("Pacman game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if (window == nullptr) {
 		TextureManager::LogSDLError(std::cout, "CreateWindow");
 		return false;
@@ -69,7 +69,7 @@ bool Game::init()
 		return false;
 	}
 
-	assets->addFont("arial", "arial.ttf", 16);
+	assets->addFont("arial", "arial.ttf", Constants::FONT_SIZE);
 
 	const std::string resPath = getResourcePath("PacmanProject");
 	const std::string pacmanFile = resPath + "pacman.png";

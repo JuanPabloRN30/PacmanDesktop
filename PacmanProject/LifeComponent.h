@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "TextureManager.h"
 #include "TransformComponent.h"
+#include "Constants.h"
 
 class LifeComponent : public Component
 {
@@ -13,7 +14,7 @@ public:
 	TransformComponent* transform;
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;
-	int lifes = 3;
+	int lifes = Constants::DEFAULT_N_LIFES;
 
 	LifeComponent() = default;
 
@@ -31,12 +32,12 @@ public:
 	void init() override {
 		transform = &entity->getComponent<TransformComponent>();
 
-		srcRect = { 0, 1 * transform->height + 1, transform->width, transform->height};
+		srcRect = { 0, 1 * transform->height + Constants::PIXEL_SEPARATION, transform->width, transform->height};
 	}
 
 	void draw() override {
 		for (int i = 0; i < lifes; i++) {
-			destRect = { i * transform->width, Game::SCREEN_HEIGHT - transform->height, transform->width, transform->height};
+			destRect = { i * transform->width, Constants::SCREEN_HEIGHT - transform->height, transform->width, transform->height};
 			TextureManager::Draw(texture, srcRect, destRect, Constants::LEFT_ANGLE, SDL_FLIP_NONE);
 		}
 	}
