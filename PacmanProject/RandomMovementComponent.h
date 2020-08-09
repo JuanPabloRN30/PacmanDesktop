@@ -15,16 +15,14 @@ public:
 		transform = &entity->getComponent<TransformComponent>();
 
 		source = transform->position;
-		dest.x = rand() % Constants::SCREEN_WIDTH;
-		dest.y = rand() % Constants::SCREEN_HEIGHT;
+		updateDestinationPoint();
 	}
 
 	void update() override {
 		source = transform->position;
 
 		if (source.x == dest.x && source.y == dest.y) {
-			dest.x = rand() % Constants::SCREEN_WIDTH;
-			dest.y = rand() % Constants::SCREEN_HEIGHT;
+			updateDestinationPoint();
 		}
 
 		if (source.x < dest.x) {
@@ -50,6 +48,12 @@ public:
 			transform->velocity.y = -1;
 			return;
 		}
+
+	}
+
+	void updateDestinationPoint() {
+		dest.x = rand() % (Constants::MAP_SIZE_X * Constants::MAP_TILE_SIZE * Constants::MAP_SCALE);
+		dest.y = rand() % (Constants::MAP_SIZE_Y * Constants::MAP_TILE_SIZE * Constants::MAP_SCALE);
 
 	}
 };
