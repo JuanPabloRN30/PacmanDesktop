@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Constants.h"
 #include "SDL.h"
 #include "ECS.h"
 #include <algorithm>
@@ -36,7 +37,7 @@ public:
 	void draw() override {
 		for (int i = 0; i < lifes; i++) {
 			destRect = { i * transform->width, Game::SCREEN_HEIGHT - transform->height, transform->width, transform->height};
-			TextureManager::Draw(texture, srcRect, destRect, 270, SDL_FLIP_NONE);
+			TextureManager::Draw(texture, srcRect, destRect, Constants::LEFT_ANGLE, SDL_FLIP_NONE);
 		}
 	}
 

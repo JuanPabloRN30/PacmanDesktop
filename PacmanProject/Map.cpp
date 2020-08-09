@@ -8,7 +8,7 @@
 #include "TileComponent.h"
 #include "ColliderComponent.h"
 #include "ScoreComponent.h"
-#include "PowerComponent.h"
+#include "Constants.h"
 
 extern Manager manager;
 
@@ -124,27 +124,25 @@ void Map::addTileCollider(int srcX, int srcY, int xpos, int ypos, SDL_Rect colli
 
 void Map::addCookieTile(int xpos, int ypos)
 {
-	const int cookieTileSize = 3;
 	int x = (scaledSize / 2) + (xpos * scaledSize);
 	int y = (scaledSize / 2) + (ypos * scaledSize);
 
 
 	auto& tcookie(manager.addEntity());
-	tcookie.addComponent<ColliderComponent>("cookie", x, y, cookieTileSize * mapScale);
-	tcookie.addComponent<TileComponent>(0, 0, x, y, cookieTileSize, mapScale, "cookie.png");
+	tcookie.addComponent<ColliderComponent>("cookie", x, y, Constants::COOKIE_TILE_SIZE * mapScale);
+	tcookie.addComponent<TileComponent>(0, 0, x, y, Constants::COOKIE_TILE_SIZE, mapScale, "cookie.png");
 	tcookie.addComponent<ScoreComponent>(10);
 	tcookie.addGroup(Game::groupCookies);
 }
 
 void Map::addPowerCookieTile(int xpos, int ypos)
 {
-	const int cookieTileSize = 3;
 	int x = (scaledSize / 2) + (xpos * scaledSize);
 	int y = (scaledSize / 2) + (ypos * scaledSize);
 
 	auto& tcookie(manager.addEntity());
-	tcookie.addComponent<ColliderComponent>("cookie", x, y, cookieTileSize * mapScale);
-	tcookie.addComponent<TileComponent>(0, 0, x, y, cookieTileSize, mapScale, "cookiePower.png");
+	tcookie.addComponent<ColliderComponent>("cookie", x, y, Constants::COOKIE_TILE_SIZE * mapScale);
+	tcookie.addComponent<TileComponent>(0, 0, x, y, Constants::COOKIE_TILE_SIZE, mapScale, "cookiePower.png");
 	tcookie.addComponent<ScoreComponent>(50);
 	tcookie.addGroup(Game::groupPowerCookies);
 }

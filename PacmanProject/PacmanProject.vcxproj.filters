@@ -39,6 +39,9 @@
     <ClCompile Include="AssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Constants.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cleanup.h">
@@ -104,7 +107,7 @@
     <ClInclude Include="LifeComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PowerComponent.h">
+    <ClInclude Include="Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

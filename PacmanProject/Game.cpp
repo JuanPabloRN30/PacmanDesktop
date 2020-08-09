@@ -12,6 +12,7 @@
 #include "AssetManager.h"
 #include <sstream>
 #include <fstream>
+#include "Constants.h"
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
@@ -70,15 +71,14 @@ bool Game::init()
 
 	assets->addFont("arial", "arial.ttf", 16);
 
-	int iW = 60, iH = 60;
 	const std::string resPath = getResourcePath("PacmanProject");
 	const std::string pacmanFile = resPath + "pacman.png";
 
-	map = new Map("pacmanboardv5.png", 2, 17);
-	map->loadMap("map.map", 13, 7);
+	map = new Map("pacmanboardv5.png", Constants::MAP_SCALE, Constants::MAP_TILE_SIZE);
+	map->loadMap("map.map", Constants::MAP_SIZE_X, Constants::MAP_SIZE_Y);
 
 	// PACMAN
-	pacman.addComponent<TransformComponent>(37, 37, 16, 16, 2);
+	pacman.addComponent<TransformComponent>(37, 37, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	pacman.addComponent<SpriteComponent>(pacmanFile.c_str(), true);
 	pacman.addComponent<KeyBoardController>();
 	pacman.addComponent<ColliderComponent>("player");
@@ -87,44 +87,43 @@ bool Game::init()
 	pacman.addGroup(groupPlayer);
 
 	// GHOST
-	cyanGhost.addComponent<TransformComponent>(60, 0, 16, 16, 2);
+	cyanGhost.addComponent<TransformComponent>(60, 0, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	cyanGhost.addComponent<GhostSpriteComponent>("cyan_ghost.png", true);
 	cyanGhost.addComponent<RandomMovementComponent>();
 	cyanGhost.addComponent<ColliderComponent>("enemy");
-	cyanGhost.addComponent<ScoreComponent>(200);
+	cyanGhost.addComponent<ScoreComponent>(Constants::GHOST_SCORE);
 	cyanGhost.addGroup(groupEnemies);
 	
-	orangeGhost.addComponent<TransformComponent>(120, 0, 16, 16, 2);
+	orangeGhost.addComponent<TransformComponent>(120, 0, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	orangeGhost.addComponent<GhostSpriteComponent>("orange_ghost.png", true);
 	orangeGhost.addComponent<RandomMovementComponent>();
 	orangeGhost.addComponent<ColliderComponent>("enemy");
-	orangeGhost.addComponent<ScoreComponent>(200);
+	orangeGhost.addComponent<ScoreComponent>(Constants::GHOST_SCORE);
 	orangeGhost.addGroup(groupEnemies);
 	
-	pinkGhost.addComponent<TransformComponent>(180, 0, 16, 16, 2);
+	pinkGhost.addComponent<TransformComponent>(180, 0, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	pinkGhost.addComponent<GhostSpriteComponent>("pink_ghost.png", true);
 	pinkGhost.addComponent<RandomMovementComponent>();
 	pinkGhost.addComponent<ColliderComponent>("enemy");
-	pinkGhost.addComponent<ScoreComponent>(200);
+	pinkGhost.addComponent<ScoreComponent>(Constants::GHOST_SCORE);
 	pinkGhost.addGroup(groupEnemies);
 
-	redGhost.addComponent<TransformComponent>(240, 0, 16, 16, 2);
+	redGhost.addComponent<TransformComponent>(240, 0, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	redGhost.addComponent<GhostSpriteComponent>("red_ghost.png", true);
 	redGhost.addComponent<RandomMovementComponent>();
 	redGhost.addComponent<ColliderComponent>("enemy");
-	redGhost.addComponent<ScoreComponent>(200);
+	redGhost.addComponent<ScoreComponent>(Constants::GHOST_SCORE);
 	redGhost.addGroup(groupEnemies);
 
-	SDL_Color white = { 255, 255, 255, 255 };
 	std::stringstream ss;
 	std::stringstream ss1;
 	ss << "1UP " << pacman.getComponent<ScoreComponent>().entityScore;
-	label.addComponent<UILabel>(Game::SCREEN_WIDTH / 4, 0, ss.str().c_str(), "arial", white);
+	label.addComponent<UILabel>(Constants::PLAYER_ONE_SCORE_X, Constants::PLAYER_ONE_SCORE_Y, ss.str().c_str(), "arial", Constants::WHITE);
 	label.addGroup(groupLabels);
 
 	loadHighestScore();
 	ss1 << "High score: " << highScore;
-	highScoreLabel.addComponent<UILabel>(Game::SCREEN_WIDTH / 2, 0, ss1.str().c_str(), "arial", white);
+	highScoreLabel.addComponent<UILabel>(Constants::HIGH_SCORE_X, Constants::HIGH_SCORE_Y, ss1.str().c_str(), "arial", Constants::WHITE);
 	highScoreLabel.addGroup(groupLabels);
 
 	return true;
@@ -198,7 +197,7 @@ void Game::update()
 				e->getComponent<GhostSpriteComponent>().setAnimation(GhostAnimationTag::move);
 				pacman.getComponent<ScoreComponent>().addEntityScore(e->getComponent<ScoreComponent>().score);
 				for (auto& e : enemies) {
-					e->getComponent<ScoreComponent>().setScore(e->getComponent<ScoreComponent>().score * 2);
+					e->getComponent<ScoreComponent>().setScore(e->getComponent<ScoreComponent>().score * Constants::GHOST_MULTIPLIER);
 				}
 			}
 			else {
@@ -211,7 +210,7 @@ void Game::update()
 		}
 
 		if (e->getComponent<GhostSpriteComponent>().animationTag == GhostAnimationTag::move) {
-			e->getComponent<ScoreComponent>().setScore(200);
+			e->getComponent<ScoreComponent>().setScore(Constants::GHOST_SCORE);
 		}
 	}
 
