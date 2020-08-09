@@ -78,7 +78,7 @@ bool Game::init()
 	map->loadMap("map.map", Constants::MAP_SIZE_X, Constants::MAP_SIZE_Y);
 
 	// PACMAN
-	pacman.addComponent<TransformComponent>(37, 37, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
+	pacman.addComponent<TransformComponent>(3 * Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT, 3 * Constants::ENTITY_SCALE * Constants::ENTITY_HEIGHT, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	pacman.addComponent<SpriteComponent>(pacmanFile.c_str(), true);
 	pacman.addComponent<KeyBoardController>();
 	pacman.addComponent<ColliderComponent>("player");
@@ -183,7 +183,7 @@ void Game::update()
 	for (auto& pc : powerCookies) {
 		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), pc->getComponent<ColliderComponent>())) {
 			for (auto& e : enemies) {
-				e->getComponent<GhostSpriteComponent>().setAnimation(GhostAnimationTag::scared);
+				e->getComponent<GhostSpriteComponent>().setAnimation(GhostAnimationTag::scared_blue);
 			}
 			pc->destroy();
 		}
@@ -192,7 +192,7 @@ void Game::update()
 	for (auto& e : enemies) {
 		// check collision with enemies
 		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), e->getComponent<ColliderComponent>())) {
-			if (e->getComponent<GhostSpriteComponent>().animationTag == GhostAnimationTag::scared) {
+			if (e->getComponent<GhostSpriteComponent>().animationTag == GhostAnimationTag::scared_blue || e->getComponent<GhostSpriteComponent>().animationTag == GhostAnimationTag::scared_white) {
 				e->getComponent<TransformComponent>().reset();
 				e->getComponent<GhostSpriteComponent>().setAnimation(GhostAnimationTag::move);
 				pacman.getComponent<ScoreComponent>().addEntityScore(e->getComponent<ScoreComponent>().score);
