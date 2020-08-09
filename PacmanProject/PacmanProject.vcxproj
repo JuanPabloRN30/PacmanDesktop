@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Constants.cpp" />
     <ClCompile Include="ECS.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Components.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="ECS.h" />
     <ClInclude Include="GhostSpriteComponent.h" />
     <ClInclude Include="KeyBoardController.h" />
@@ -167,7 +169,6 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="cleanup.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="PowerComponent.h" />
     <ClInclude Include="RandomMovementComponent.h" />
     <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="TileComponent.h" />

@@ -2,6 +2,7 @@
 
 #include "ECS.h"
 #include "Vector2D.h"
+#include "Constants.h"
 
 class TransformComponent : public Component
 {
@@ -19,11 +20,11 @@ public:
 	Vector2D position;
 	Vector2D velocity;
 
-	int height = 16;
-	int width = 16;
-	int scale = 1;
+	int height = Constants::ENTITY_HEIGHT;
+	int width = Constants::ENTITY_WIDHT;
+	int scale = Constants::ENTITY_SCALE;
 
-	int speed = 1;
+	int speed = Constants::ENTITY_SPEED;
 
 	TransformComponent() {
 		position.Zero();

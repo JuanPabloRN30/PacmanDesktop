@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include "cleanup.h"
 #include "Animation.h"
+#include "Constants.h"
 #include <map>
 
 class AnimationTag {
@@ -69,7 +70,7 @@ public:
 		int srcY = static_cast<int>((SDL_GetTicks() / speed) % frames);
 
 		if (animated) {
-			srcRect.y = srcRect.h * srcY + (1 * srcY);
+			srcRect.y = srcRect.h * srcY + (Constants::PIXEL_SEPARATION * srcY);
 		}
 
 		srcRect.x = animIndexX * transform->width;
