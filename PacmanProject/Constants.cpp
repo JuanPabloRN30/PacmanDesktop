@@ -11,6 +11,10 @@ namespace Constants {
 
 	SDL_Color WHITE = { 255, 255, 255, 255 };
 
+	// VIEWPORT
+	SDL_Rect TOP_VIEWPORT = { 0, 0, Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT >> 4 };
+	SDL_Rect BOTTOM_VIEWPORT = { 0, Constants::SCREEN_HEIGHT >> 4, Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT };
+
 	// FONT
 	const int FONT_SIZE = 16;
 
