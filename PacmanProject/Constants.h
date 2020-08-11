@@ -13,6 +13,10 @@ namespace Constants {
 
 	extern SDL_Color WHITE;
 
+	// VIEWPORT
+	extern SDL_Rect TOP_VIEWPORT;
+	extern SDL_Rect BOTTOM_VIEWPORT;
+
 	// FONT
 	extern const int FONT_SIZE;
 

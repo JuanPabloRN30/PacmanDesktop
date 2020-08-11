@@ -36,8 +36,10 @@ public:
 	}
 
 	void draw() override {
+		int scaledWidthSize = transform->width * transform->scale;
+		int scaledHeightSize = transform->height * transform->scale;
 		for (int i = 0; i < lifes; i++) {
-			destRect = { i * transform->width, Constants::SCREEN_HEIGHT - transform->height, transform->width, transform->height};
+			destRect = { i * scaledWidthSize, Constants::BOTTOM_VIEWPORT.h - scaledHeightSize, scaledWidthSize, scaledHeightSize};
 			TextureManager::Draw(texture, srcRect, destRect, Constants::LEFT_ANGLE, SDL_FLIP_NONE);
 		}
 	}

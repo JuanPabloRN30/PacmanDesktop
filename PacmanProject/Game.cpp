@@ -231,11 +231,11 @@ void Game::update()
 				}
 			}
 			else {
-				pacman.getComponent<LifeComponent>().loseLife();
+				/*pacman.getComponent<LifeComponent>().loseLife();
 				pacman.getComponent<TransformComponent>().reset();
 				for (auto& e : enemies) {
 					e->getComponent<TransformComponent>().reset();
-				}
+				}*/
 			}
 		}
 
@@ -254,7 +254,11 @@ void Game::update()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
+
+	SDL_RenderSetViewport(renderer, &Constants::TOP_VIEWPORT);
 	for (auto& l : labels) l->draw();
+
+	SDL_RenderSetViewport(renderer, &Constants::BOTTOM_VIEWPORT);
 	for (auto& t : tiles) t->draw();
 	//for (auto& c : colliders) c->draw();
 	for (auto& c : cookies) c->draw();
