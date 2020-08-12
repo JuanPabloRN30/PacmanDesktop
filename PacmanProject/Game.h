@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include <vector>
 
 class AssetManager;
@@ -23,6 +24,7 @@ public:
 	void saveScore();
 	void loadHighestScore();
 
+	static Mix_Chunk* pacmanChomp;
 	static int highScore;
 	static int level;
 	static const char* scoreFilePath;

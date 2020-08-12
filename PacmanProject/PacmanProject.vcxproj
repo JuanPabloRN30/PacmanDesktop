@@ -88,13 +88,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\USUARIO\Documents\cpp\libraries\SDL2_ttf\include;C:\Users\USUARIO\Documents\cpp\libraries\SDL2_image\include;C:\Users\USUARIO\Documents\cpp\libraries\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\USUARIO\Documents\cpp\libraries\SDL2_mixer\include;C:\Users\USUARIO\Documents\cpp\libraries\SDL2_ttf\include;C:\Users\USUARIO\Documents\cpp\libraries\SDL2_image\include;C:\Users\USUARIO\Documents\cpp\libraries\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\USUARIO\Documents\cpp\libraries\SDL2_ttf\lib\x86;C:\Users\USUARIO\Documents\cpp\libraries\SDL2_image\lib\x86;C:\Users\USUARIO\Documents\cpp\libraries\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\USUARIO\Documents\cpp\libraries\SDL2_mixer\lib\x86;C:\Users\USUARIO\Documents\cpp\libraries\SDL2_ttf\lib\x86;C:\Users\USUARIO\Documents\cpp\libraries\SDL2_image\lib\x86;C:\Users\USUARIO\Documents\cpp\libraries\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -105,15 +105,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\USUARIO\Documents\cpp\libraries\SDL2_ttf\include;C:\Users\USUARIO\Documents\cpp\libraries\SDL2_image\include;C:\Users\USUARIO\Documents\cpp\libraries\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\USUARIO\Documents\cpp\libraries\SDL2_mixer\include;C:\Users\USUARIO\Documents\cpp\libraries\SDL2_ttf\include;C:\Users\USUARIO\Documents\cpp\libraries\SDL2_image\include;C:\Users\USUARIO\Documents\cpp\libraries\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\USUARIO\Documents\cpp\libraries\SDL2_ttf\lib\x86;C:\Users\USUARIO\Documents\cpp\libraries\SDL2_image\lib\x86;C:\Users\USUARIO\Documents\cpp\libraries\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\USUARIO\Documents\cpp\libraries\SDL2_mixer\lib\x86;C:\Users\USUARIO\Documents\cpp\libraries\SDL2_ttf\lib\x86;C:\Users\USUARIO\Documents\cpp\libraries\SDL2_image\lib\x86;C:\Users\USUARIO\Documents\cpp\libraries\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -196,6 +196,9 @@
     <Text Include="colliders.txt" />
     <Text Include="map.map" />
     <Text Include="scores.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="pacman_chomp.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,6 +3,7 @@
 #include<iostream>
 #include <time.h>
 #include "SDL_image.h"
+#include "SDL_mixer.h"
 #include "TextureManager.h"
 #include "Map.h"
 #include "Components.h"
@@ -16,6 +17,7 @@
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
+Mix_Chunk* Game::pacmanChomp = nullptr;
 Map* map;
 
 bool Game::isRunning = false;
@@ -53,6 +55,12 @@ bool Game::init()
 
 	if (TTF_Init() == -1) {
 		TextureManager::LogSDLError(std::cout, "TTF_Init");
+		return false;
+	}
+
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	{
+		TextureManager::LogSDLError(std::cout, "SDL_Mixer error");
 		return false;
 	}
 
@@ -135,6 +143,15 @@ bool Game::init()
 	ss1 << "High score: " << highScore;
 	highScoreLabel.addComponent<UILabel>(Constants::HIGH_SCORE_X, Constants::HIGH_SCORE_Y, ss1.str().c_str(), "arial", Constants::WHITE);
 	highScoreLabel.addGroup(groupLabels);
+
+	pacmanChomp = Mix_LoadWAV("pacman_chomp.wav");
+	if (pacmanChomp == nullptr)
+	{
+		TextureManager::LogSDLError(std::cout, "Chomp music error");
+		return false;
+	}
+	Mix_PlayChannel(-1, pacmanChomp, 0);
+
 
 	return true;
 }
@@ -271,6 +288,8 @@ void Game::render()
 void Game::clean()
 {
 	cleanup(renderer, window);
+	Mix_FreeChunk(Game::pacmanChomp);
+	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }
