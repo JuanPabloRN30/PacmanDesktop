@@ -3,6 +3,7 @@
 #include<iostream>
 #include <time.h>
 #include "SDL_image.h"
+#include "SDL_mixer.h"
 #include "TextureManager.h"
 #include "Map.h"
 #include "Components.h"
@@ -56,6 +57,12 @@ bool Game::init()
 		return false;
 	}
 
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	{
+		TextureManager::LogSDLError(std::cout, "SDL_Mixer error");
+		return false;
+	}
+
 	isRunning = true;
 
 	window = SDL_CreateWindow("Pacman game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -70,6 +77,12 @@ bool Game::init()
 	}
 
 	assets->addFont("arial", "arial.ttf", Constants::FONT_SIZE);
+
+	assets->addSoundEffect(Constants::chomp, "pacman_chomp.wav");
+	assets->addSoundEffect(Constants::intermission, "pacman_intermission.wav");
+	assets->addSoundEffect(Constants::eath_ghost, "pacman_eatghost.wav");
+	assets->addSoundEffect(Constants::beginning, "pacman_beginning.wav");
+	assets->addSoundEffect(Constants::death, "pacman_death.wav");
 
 	const std::string resPath = getResourcePath("PacmanProject");
 	const std::string pacmanFile = resPath + "pacman.png";
@@ -168,6 +181,8 @@ auto& labels(manager.getGroup(Game::groupLabels));
 
 void Game::update()
 {
+	assets->getSoundEffect(Constants::chomp)->play();
+
 	Vector2D pacmanPos = pacman.getComponent<TransformComponent>().position;
 	Vector2D cyanGhostPos = cyanGhost.getComponent<TransformComponent>().position;
 	Vector2D orangeGhostPos = orangeGhost.getComponent<TransformComponent>().position;
@@ -223,6 +238,9 @@ void Game::update()
 		// check collision with enemies
 		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), e->getComponent<ColliderComponent>())) {
 			if (e->getComponent<GhostSpriteComponent>().animationTag == GhostAnimationTag::scared_blue || e->getComponent<GhostSpriteComponent>().animationTag == GhostAnimationTag::scared_white) {
+
+				assets->getSoundEffect(Constants::eath_ghost)->play();
+
 				e->getComponent<TransformComponent>().reset();
 				e->getComponent<GhostSpriteComponent>().setAnimation(GhostAnimationTag::move);
 				pacman.getComponent<ScoreComponent>().addEntityScore(e->getComponent<ScoreComponent>().score);
@@ -231,11 +249,12 @@ void Game::update()
 				}
 			}
 			else {
-				/*pacman.getComponent<LifeComponent>().loseLife();
+				assets->getSoundEffect(Constants::death)->play();
+				pacman.getComponent<LifeComponent>().loseLife();
 				pacman.getComponent<TransformComponent>().reset();
 				for (auto& e : enemies) {
 					e->getComponent<TransformComponent>().reset();
-				}*/
+				}
 			}
 		}
 
@@ -271,6 +290,7 @@ void Game::render()
 void Game::clean()
 {
 	cleanup(renderer, window);
+	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }

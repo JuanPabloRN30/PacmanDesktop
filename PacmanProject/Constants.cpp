@@ -51,6 +51,13 @@ namespace Constants {
 	const int GHOST_SCORE = 200;
 	const int GHOST_MULTIPLIER = 2;
 
+	// SOUNDS EFFECTS IDS
+	const char* beginning = "beginning";
+	const char* chomp = "chomp";
+	const char* death = "death";
+	const char* eath_ghost = "eat_ghost";
+	const char* intermission = "intermission";
+
 	// SPRITE
 	const int PIXEL_SEPARATION = 1;
 }

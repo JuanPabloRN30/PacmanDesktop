@@ -53,6 +53,13 @@ namespace Constants {
 	extern const int GHOST_SCORE;
 	extern const int GHOST_MULTIPLIER;
 
+	// SOUNDS EFFECTS IDS
+	extern const char* beginning;
+	extern const char* chomp;
+	extern const char* death;
+	extern const char* eath_ghost;
+	extern const char* intermission;
+
 	// SPRITE
 	extern const int PIXEL_SEPARATION;
 }

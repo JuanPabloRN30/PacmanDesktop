@@ -5,6 +5,7 @@
 
 class AssetManager;
 class ColliderComponent;
+class SoundManager;
 
 
 class Game
@@ -30,6 +31,7 @@ public:
 	static SDL_Event event;
 	static SDL_Renderer* renderer;
 	static AssetManager* assets;
+	static SoundManager* sounds;
 	enum groupLabels : std::size_t {
 		groupMap,
 		groupPlayer,

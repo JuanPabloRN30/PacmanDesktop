@@ -42,6 +42,9 @@
     <ClCompile Include="Constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SoundEffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cleanup.h">
@@ -110,6 +113,9 @@
     <ClInclude Include="Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SoundEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="right_wall.png">
@@ -156,5 +162,22 @@
     <Text Include="colliders.txt">
       <Filter>Resource Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="pacman_chomp.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="pacman_intermission.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="pacman_eatghost.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="pacman_beginning.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="pacman_death.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>
