@@ -24,7 +24,10 @@ public:
 	void saveScore();
 	void loadHighestScore();
 
+	static Mix_Chunk* pacmanBeginning;
 	static Mix_Chunk* pacmanChomp;
+	static Mix_Chunk* pacmanIntermission;
+	static Mix_Chunk* pacmanEatGhost;
 	static int highScore;
 	static int level;
 	static const char* scoreFilePath;

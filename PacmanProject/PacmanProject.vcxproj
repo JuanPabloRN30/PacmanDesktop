@@ -198,7 +198,10 @@
     <Text Include="scores.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="pacman_beginning.wav" />
     <Media Include="pacman_chomp.wav" />
+    <Media Include="pacman_eatghost.wav" />
+    <Media Include="pacman_intermission.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

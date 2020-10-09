@@ -17,7 +17,10 @@
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
+Mix_Chunk* Game::pacmanBeginning = nullptr;
 Mix_Chunk* Game::pacmanChomp = nullptr;
+Mix_Chunk* Game::pacmanIntermission = nullptr;
+Mix_Chunk* Game::pacmanEatGhost = nullptr;
 Map* map;
 
 bool Game::isRunning = false;
@@ -150,8 +153,27 @@ bool Game::init()
 		TextureManager::LogSDLError(std::cout, "Chomp music error");
 		return false;
 	}
-	Mix_PlayChannel(-1, pacmanChomp, 0);
 
+	pacmanIntermission = Mix_LoadWAV("pacman_intermission.wav");
+	if (pacmanIntermission == nullptr)
+	{
+		TextureManager::LogSDLError(std::cout, "Intermission music error");
+		return false;
+	}
+
+	pacmanEatGhost = Mix_LoadWAV("pacman_eatghost.wav");
+	if (pacmanEatGhost == nullptr)
+	{
+		TextureManager::LogSDLError(std::cout, "Eat ghost music error");
+		return false;
+	}
+
+	pacmanBeginning = Mix_LoadWAV("pacman_beginning.wav");
+	if (pacmanBeginning == nullptr)
+	{
+		TextureManager::LogSDLError(std::cout, "Beginning music error");
+		return false;
+	}
 
 	return true;
 }
@@ -222,6 +244,7 @@ void Game::update()
 
 	for (auto& c : cookies) {
 		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), c->getComponent<ColliderComponent>())) {
+			Mix_PlayChannel(-1, Game::pacmanChomp, 0);
 			pacman.getComponent<ScoreComponent>().addEntityScore(c->getComponent<ScoreComponent>().score);
 			c->destroy();
 		}
@@ -240,6 +263,7 @@ void Game::update()
 		// check collision with enemies
 		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), e->getComponent<ColliderComponent>())) {
 			if (e->getComponent<GhostSpriteComponent>().animationTag == GhostAnimationTag::scared_blue || e->getComponent<GhostSpriteComponent>().animationTag == GhostAnimationTag::scared_white) {
+				Mix_PlayChannel(-1, Game::pacmanEatGhost, 0);
 				e->getComponent<TransformComponent>().reset();
 				e->getComponent<GhostSpriteComponent>().setAnimation(GhostAnimationTag::move);
 				pacman.getComponent<ScoreComponent>().addEntityScore(e->getComponent<ScoreComponent>().score);
@@ -288,7 +312,10 @@ void Game::render()
 void Game::clean()
 {
 	cleanup(renderer, window);
+	Mix_FreeChunk(Game::pacmanBeginning);
 	Mix_FreeChunk(Game::pacmanChomp);
+	Mix_FreeChunk(Game::pacmanIntermission);
+	Mix_FreeChunk(Game::pacmanEatGhost);
 	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
