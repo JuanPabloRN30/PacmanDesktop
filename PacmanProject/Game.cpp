@@ -17,10 +17,6 @@
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
-Mix_Chunk* Game::pacmanBeginning = nullptr;
-Mix_Chunk* Game::pacmanChomp = nullptr;
-Mix_Chunk* Game::pacmanIntermission = nullptr;
-Mix_Chunk* Game::pacmanEatGhost = nullptr;
 Map* map;
 
 bool Game::isRunning = false;
@@ -81,6 +77,12 @@ bool Game::init()
 	}
 
 	assets->addFont("arial", "arial.ttf", Constants::FONT_SIZE);
+
+	assets->addSoundEffect(Constants::chomp, "pacman_chomp.wav");
+	assets->addSoundEffect(Constants::intermission, "pacman_intermission.wav");
+	assets->addSoundEffect(Constants::eath_ghost, "pacman_eatghost.wav");
+	assets->addSoundEffect(Constants::beginning, "pacman_beginning.wav");
+	assets->addSoundEffect(Constants::death, "pacman_death.wav");
 
 	const std::string resPath = getResourcePath("PacmanProject");
 	const std::string pacmanFile = resPath + "pacman.png";
@@ -147,34 +149,6 @@ bool Game::init()
 	highScoreLabel.addComponent<UILabel>(Constants::HIGH_SCORE_X, Constants::HIGH_SCORE_Y, ss1.str().c_str(), "arial", Constants::WHITE);
 	highScoreLabel.addGroup(groupLabels);
 
-	pacmanChomp = Mix_LoadWAV("pacman_chomp.wav");
-	if (pacmanChomp == nullptr)
-	{
-		TextureManager::LogSDLError(std::cout, "Chomp music error");
-		return false;
-	}
-
-	pacmanIntermission = Mix_LoadWAV("pacman_intermission.wav");
-	if (pacmanIntermission == nullptr)
-	{
-		TextureManager::LogSDLError(std::cout, "Intermission music error");
-		return false;
-	}
-
-	pacmanEatGhost = Mix_LoadWAV("pacman_eatghost.wav");
-	if (pacmanEatGhost == nullptr)
-	{
-		TextureManager::LogSDLError(std::cout, "Eat ghost music error");
-		return false;
-	}
-
-	pacmanBeginning = Mix_LoadWAV("pacman_beginning.wav");
-	if (pacmanBeginning == nullptr)
-	{
-		TextureManager::LogSDLError(std::cout, "Beginning music error");
-		return false;
-	}
-
 	return true;
 }
 
@@ -207,6 +181,8 @@ auto& labels(manager.getGroup(Game::groupLabels));
 
 void Game::update()
 {
+	assets->getSoundEffect(Constants::chomp)->play();
+
 	Vector2D pacmanPos = pacman.getComponent<TransformComponent>().position;
 	Vector2D cyanGhostPos = cyanGhost.getComponent<TransformComponent>().position;
 	Vector2D orangeGhostPos = orangeGhost.getComponent<TransformComponent>().position;
@@ -244,7 +220,6 @@ void Game::update()
 
 	for (auto& c : cookies) {
 		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), c->getComponent<ColliderComponent>())) {
-			Mix_PlayChannel(-1, Game::pacmanChomp, 0);
 			pacman.getComponent<ScoreComponent>().addEntityScore(c->getComponent<ScoreComponent>().score);
 			c->destroy();
 		}
@@ -263,7 +238,9 @@ void Game::update()
 		// check collision with enemies
 		if (Collision::AABB(pacman.getComponent<ColliderComponent>(), e->getComponent<ColliderComponent>())) {
 			if (e->getComponent<GhostSpriteComponent>().animationTag == GhostAnimationTag::scared_blue || e->getComponent<GhostSpriteComponent>().animationTag == GhostAnimationTag::scared_white) {
-				Mix_PlayChannel(-1, Game::pacmanEatGhost, 0);
+
+				assets->getSoundEffect(Constants::eath_ghost)->play();
+
 				e->getComponent<TransformComponent>().reset();
 				e->getComponent<GhostSpriteComponent>().setAnimation(GhostAnimationTag::move);
 				pacman.getComponent<ScoreComponent>().addEntityScore(e->getComponent<ScoreComponent>().score);
@@ -272,11 +249,12 @@ void Game::update()
 				}
 			}
 			else {
-				/*pacman.getComponent<LifeComponent>().loseLife();
+				assets->getSoundEffect(Constants::death)->play();
+				pacman.getComponent<LifeComponent>().loseLife();
 				pacman.getComponent<TransformComponent>().reset();
 				for (auto& e : enemies) {
 					e->getComponent<TransformComponent>().reset();
-				}*/
+				}
 			}
 		}
 
@@ -312,10 +290,6 @@ void Game::render()
 void Game::clean()
 {
 	cleanup(renderer, window);
-	Mix_FreeChunk(Game::pacmanBeginning);
-	Mix_FreeChunk(Game::pacmanChomp);
-	Mix_FreeChunk(Game::pacmanIntermission);
-	Mix_FreeChunk(Game::pacmanEatGhost);
 	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();

@@ -1,11 +1,11 @@
 #pragma once
 
 #include <SDL.h>
-#include <SDL_mixer.h>
 #include <vector>
 
 class AssetManager;
 class ColliderComponent;
+class SoundManager;
 
 
 class Game
@@ -24,10 +24,6 @@ public:
 	void saveScore();
 	void loadHighestScore();
 
-	static Mix_Chunk* pacmanBeginning;
-	static Mix_Chunk* pacmanChomp;
-	static Mix_Chunk* pacmanIntermission;
-	static Mix_Chunk* pacmanEatGhost;
 	static int highScore;
 	static int level;
 	static const char* scoreFilePath;
@@ -35,6 +31,7 @@ public:
 	static SDL_Event event;
 	static SDL_Renderer* renderer;
 	static AssetManager* assets;
+	static SoundManager* sounds;
 	enum groupLabels : std::size_t {
 		groupMap,
 		groupPlayer,
