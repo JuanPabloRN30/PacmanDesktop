@@ -18,6 +18,11 @@ namespace Constants {
 	extern SDL_Rect BOTTOM_VIEWPORT;
 
 	// FONT
+	extern const char* MENU_FONT_ID;
+	extern const char* MENU_FONT_FILE;
+	extern const int MENU_FONT_SIZE;
+	extern const char* GAME_FONT_ID;
+	extern const char* GAME_FONT_FILE;
 	extern const int FONT_SIZE;
 
 	// LABEL
@@ -54,11 +59,19 @@ namespace Constants {
 	extern const int GHOST_MULTIPLIER;
 
 	// SOUNDS EFFECTS IDS
-	extern const char* beginning;
-	extern const char* chomp;
-	extern const char* death;
-	extern const char* eath_ghost;
-	extern const char* intermission;
+	extern const char* BEGINNING_FILE;
+	extern const char* BEGINNING_ID;
+	extern const char* CHOMP_FILE;
+	extern const char* CHOMP_ID;
+	extern const char* DEATH_FILE;
+	extern const char* DEATH_ID;
+	extern const char* EAT_GHOST_FILE;
+	extern const char* EAT_GHOST_ID;
+	extern const char* INTERMISSION_FILE;
+	extern const char* INTERMISSION_ID;
+
+	// SCORE
+	extern const char* HIGH_SCORE_FILE;
 
 	// SPRITE
 	extern const int PIXEL_SEPARATION;

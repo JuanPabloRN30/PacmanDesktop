@@ -149,27 +149,33 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Constants.cpp" />
     <ClCompile Include="ECS.cpp" />
+    <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuWindow.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="Vector2D.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AssetManager.h" />
+    <ClInclude Include="ClickComponent.h" />
     <ClInclude Include="ColliderComponent.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="ECS.h" />
+    <ClInclude Include="GameWindow.h" />
     <ClInclude Include="GhostSpriteComponent.h" />
     <ClInclude Include="KeyBoardController.h" />
     <ClInclude Include="LifeComponent.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="cleanup.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="MenuWindow.h" />
     <ClInclude Include="RandomMovementComponent.h" />
     <ClInclude Include="ScoreComponent.h" />
     <ClInclude Include="SoundEffect.h" />
@@ -180,6 +186,7 @@
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="UILabel.h" />
     <ClInclude Include="Vector2D.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="collider.png" />

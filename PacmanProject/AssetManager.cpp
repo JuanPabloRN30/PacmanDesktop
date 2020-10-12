@@ -1,6 +1,9 @@
 #include "AssetManager.h"
 
+#include "Constants.h"
 #include "SoundEffect.h"
+
+#include <iostream>
 
 void AssetManager::addFont(const char* id, const char* path, int fontSize)
 {
@@ -9,7 +12,8 @@ void AssetManager::addFont(const char* id, const char* path, int fontSize)
 
 TTF_Font* AssetManager::getFont(const char* id)
 {
-    return fonts[id];
+    if (fonts.find(id) != fonts.end()) return fonts[id];
+    return nullptr;
 }
 
 

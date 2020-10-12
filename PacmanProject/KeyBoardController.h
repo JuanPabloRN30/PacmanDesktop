@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Game.h"
+#include "Window.h"
 #include "ECS.h"
 #include "TransformComponent.h"
 #include "SpriteComponent.h"
@@ -17,8 +17,8 @@ public:
 	}
 
 	void update() override {
-		if (Game::event.type == SDL_KEYDOWN) {
-			switch (Game::event.key.keysym.sym)
+		if (Window::_event.type == SDL_KEYDOWN) {
+			switch (Window::_event.key.keysym.sym)
 			{
 				case SDLK_DOWN:
 					transform->velocity.x = 0;
@@ -45,7 +45,7 @@ public:
 			}
 		}
 
-		if (Game::event.type == SDL_KEYUP) {
+		if (Window::_event.type == SDL_KEYUP) {
 		}
 	}
 

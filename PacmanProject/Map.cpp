@@ -1,5 +1,5 @@
 #include "Map.h"
-#include "Game.h"
+#include "GameWindow.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -112,14 +112,14 @@ void Map::addTile(int srcX, int srcY, int xpos, int ypos)
 {
 	auto& tile(manager.addEntity());
 	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, tileSize, mapScale, mapFilePath);
-	tile.addGroup(Game::groupMap);
+	tile.addGroup(GameWindow::groupMap);
 }
 
 void Map::addTileCollider(int srcX, int srcY, int xpos, int ypos, SDL_Rect collider)
 {
 	auto& tcol(manager.addEntity());
 	tcol.addComponent<ColliderComponent>("map", srcX, srcY, xpos, ypos, tileSize, mapFilePath, collider);
-	tcol.addGroup(Game::groupColliders);
+	tcol.addGroup(GameWindow::groupColliders);
 }
 
 void Map::addCookieTile(int xpos, int ypos)
@@ -132,7 +132,7 @@ void Map::addCookieTile(int xpos, int ypos)
 	tcookie.addComponent<ColliderComponent>("cookie", x, y, Constants::COOKIE_TILE_SIZE * mapScale);
 	tcookie.addComponent<TileComponent>(0, 0, x, y, Constants::COOKIE_TILE_SIZE, mapScale, "cookie.png");
 	tcookie.addComponent<ScoreComponent>(Constants::COOKIE_SCORE);
-	tcookie.addGroup(Game::groupCookies);
+	tcookie.addGroup(GameWindow::groupCookies);
 }
 
 void Map::addPowerCookieTile(int xpos, int ypos)
@@ -144,5 +144,5 @@ void Map::addPowerCookieTile(int xpos, int ypos)
 	tcookie.addComponent<ColliderComponent>("cookie", x, y, Constants::POWER_COOKIE_TILE_SIZE * mapScale);
 	tcookie.addComponent<TileComponent>(0, 0, x, y, Constants::COOKIE_TILE_SIZE, mapScale, "cookiePower.png");
 	tcookie.addComponent<ScoreComponent>(Constants::POWER_COOKIE_SCORE);
-	tcookie.addGroup(Game::groupPowerCookies);
+	tcookie.addGroup(GameWindow::groupPowerCookies);
 }
