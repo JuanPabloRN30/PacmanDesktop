@@ -12,6 +12,7 @@ namespace Constants {
 	extern const int SCREEN_HEIGHT;
 
 	extern SDL_Color WHITE;
+	extern SDL_Color YELLOW;
 
 	// VIEWPORT
 	extern SDL_Rect TOP_VIEWPORT;
@@ -20,6 +21,9 @@ namespace Constants {
 	// FONT
 	extern const char* MENU_FONT_ID;
 	extern const char* MENU_FONT_FILE;
+	extern const int MENU_TITLE_FONT_SIZE;
+	extern const char* MENU_TITLE_FONT_ID;
+	extern const char* MENU_TITLE_FONT_FILE;
 	extern const int MENU_FONT_SIZE;
 	extern const char* GAME_FONT_ID;
 	extern const char* GAME_FONT_FILE;

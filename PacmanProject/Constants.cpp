@@ -10,6 +10,7 @@ namespace Constants {
 	const int SCREEN_HEIGHT = 800;
 
 	SDL_Color WHITE = { 255, 255, 255, 255 };
+	SDL_Color YELLOW = { 255, 255, 0, 255 };
 
 	// VIEWPORT
 	SDL_Rect TOP_VIEWPORT = { 0, 0, Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT >> 4 };
@@ -17,10 +18,13 @@ namespace Constants {
 
 	// FONT
 	const char* MENU_FONT_ID = "font_50";
-	const char* MENU_FONT_FILE = "VCR_OSD_MONO_1.001.ttf";
+	const char* MENU_FONT_FILE = "fonts/VCR_OSD_MONO_1.001.ttf";
+	const char* MENU_TITLE_FONT_ID = "menu_title_50";
+	const char* MENU_TITLE_FONT_FILE = "fonts/Lot.otf";
+	const int MENU_TITLE_FONT_SIZE = 50;
 	const int MENU_FONT_SIZE = 50;
 	const char* GAME_FONT_ID = "font_16";
-	const char* GAME_FONT_FILE = "VCR_OSD_MONO_1.001.ttf";
+	const char* GAME_FONT_FILE = "fonts/VCR_OSD_MONO_1.001.ttf";
 	const int FONT_SIZE = 16;
 
 	// LABEL

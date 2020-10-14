@@ -19,14 +19,16 @@ public:
 	enum groups : std::size_t {
 		groupTitles,
 		groupOptions,
-		groupFooters
+		groupPlayers,
+		groupEnemies
 	};
 
 	static SDL_Event _menuEvent;
 
 private:
-	int sectionHeight = Constants::SCREEN_HEIGHT / 3;
-	SDL_Rect titleViewport = { 0, 0, Constants::SCREEN_WIDTH, sectionHeight };
-	SDL_Rect optionViewport = { 0, sectionHeight, Constants::SCREEN_WIDTH, sectionHeight };
-	SDL_Rect footerViewport = { 0, sectionHeight * 2, Constants::SCREEN_WIDTH, sectionHeight };
+	int waitAnimationMiliseconds = 5000;
+	bool buttonPressed = false;
+	SDL_Rect titleViewport = { 0, 0, Constants::SCREEN_WIDTH, static_cast<int>(Constants::SCREEN_HEIGHT * .2) };
+	SDL_Rect optionViewport = { 0, static_cast<int>(Constants::SCREEN_HEIGHT * .2), Constants::SCREEN_WIDTH, static_cast<int>(Constants::SCREEN_HEIGHT * .6) };
+	SDL_Rect footerViewport = { 0, static_cast<int>(Constants::SCREEN_HEIGHT * .8), Constants::SCREEN_WIDTH, static_cast<int>(Constants::SCREEN_HEIGHT * .2) };
 };

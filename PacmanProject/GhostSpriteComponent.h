@@ -71,6 +71,10 @@ public:
 		destRect.h = transform->height * transform->scale;
 	}
 
+	void draw() override {
+		TextureManager::Draw(texture, srcRect, destRect, angle, spriteFlip);
+	}
+
 	void setAnimation(int tag) {
 		if (animationTag == GhostAnimationTag::move && tag == GhostAnimationTag::scared_blue) scaredBeginSeconds = SDL_GetTicks();
 		animationTag = tag;
@@ -78,7 +82,7 @@ public:
 		frames = animations[animationTag].frames;
 		speed = animations[animationTag].speed;
 
-		srcRect.x = animations[animationTag].indexX;
-		srcRect.y = animations[animationTag].indexY;
+		/*srcRect.x = animations[animationTag].indexX;
+		srcRect.y = animations[animationTag].indexY;*/
 	}
 };
