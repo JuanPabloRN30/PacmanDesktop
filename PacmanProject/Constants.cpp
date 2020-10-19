@@ -10,12 +10,21 @@ namespace Constants {
 	const int SCREEN_HEIGHT = 800;
 
 	SDL_Color WHITE = { 255, 255, 255, 255 };
+	SDL_Color YELLOW = { 255, 255, 0, 255 };
 
 	// VIEWPORT
 	SDL_Rect TOP_VIEWPORT = { 0, 0, Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT >> 4 };
 	SDL_Rect BOTTOM_VIEWPORT = { 0, TOP_VIEWPORT.h, Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT - TOP_VIEWPORT.h};
 
 	// FONT
+	const char* MENU_FONT_ID = "font_50";
+	const char* MENU_FONT_FILE = "assets/fonts/VCR_OSD_MONO_1.001.ttf";
+	const char* MENU_TITLE_FONT_ID = "menu_title_50";
+	const char* MENU_TITLE_FONT_FILE = "assets/fonts/Lot.otf";
+	const int MENU_TITLE_FONT_SIZE = 50;
+	const int MENU_FONT_SIZE = 50;
+	const char* GAME_FONT_ID = "font_16";
+	const char* GAME_FONT_FILE = "assets/fonts/VCR_OSD_MONO_1.001.ttf";
 	const int FONT_SIZE = 16;
 
 	// LABEL
@@ -52,11 +61,19 @@ namespace Constants {
 	const int GHOST_MULTIPLIER = 2;
 
 	// SOUNDS EFFECTS IDS
-	const char* beginning = "beginning";
-	const char* chomp = "chomp";
-	const char* death = "death";
-	const char* eath_ghost = "eat_ghost";
-	const char* intermission = "intermission";
+	const char* BEGINNING_ID = "beginning";
+	const char* BEGINNING_FILE = "assets/audios/pacman_beginning.wav";
+	const char* CHOMP_FILE = "assets/audios/pacman_chomp.wav";
+	const char* CHOMP_ID = "chomp";
+	const char* DEATH_FILE = "assets/audios/pacman_death.wav";
+	const char* DEATH_ID = "death";
+	const char* EAT_GHOST_FILE = "assets/audios/pacman_eatghost.wav";
+	const char* EAT_GHOST_ID = "eat_ghost";
+	const char* INTERMISSION_FILE = "assets/audios/pacman_intermission.wav";
+	const char* INTERMISSION_ID = "intermission";
+
+	// SCORE
+	const char* HIGH_SCORE_FILE = "high_score.txt";
 
 	// SPRITE
 	const int PIXEL_SEPARATION = 1;

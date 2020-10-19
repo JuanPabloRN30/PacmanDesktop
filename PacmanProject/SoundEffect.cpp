@@ -18,6 +18,7 @@ SoundEffect::~SoundEffect()
 }
 
 
-void SoundEffect::play() {
-	Mix_PlayChannel(-1, sound, 0);
+void SoundEffect::play(int loops) {
+	int channel = Mix_PlayChannel(-1, sound, loops);
+	Mix_Volume(channel, MIX_MAX_VOLUME / 8);
 }

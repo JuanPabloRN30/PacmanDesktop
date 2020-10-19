@@ -9,6 +9,7 @@
 #include "UILabel.h"
 #include "ScoreComponent.h"
 #include "LifeComponent.h"
+#include "ClickComponent.h"
 
 // GHOST
 #include "RandomMovementComponent.h"

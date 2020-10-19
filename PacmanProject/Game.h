@@ -1,7 +1,9 @@
 #pragma once
 
 #include <SDL.h>
+#include <stack>
 #include <vector>
+#include "Window.h"
 
 class AssetManager;
 class ColliderComponent;
@@ -14,24 +16,16 @@ public:
 
 	Game();
 
+
 	bool init();
+	bool isRunning();
 	void handleEvents();
 	void update();
-	bool running();
 	void render();
 	void clean();
 
-	void saveScore();
-	void loadHighestScore();
-
-	static int highScore;
-	static int level;
-	static const char* scoreFilePath;
-	static bool isRunning;
-	static SDL_Event event;
-	static SDL_Renderer* renderer;
-	static AssetManager* assets;
-	static SoundManager* sounds;
+	Window* getCurrentWindow();
+	static Window* currentWindow;
 	enum groupLabels : std::size_t {
 		groupMap,
 		groupPlayer,
@@ -41,7 +35,6 @@ public:
 		groupPowerCookies,
 		groupLabels
 	};
-
 private:
-	SDL_Window* window;
+	std::stack<Window*> _scenes;
 };

@@ -12,8 +12,10 @@
 class UILabel : public Component
 {
 public:
-	UILabel(int xpos, int ypos, const char* text, const char* font, SDL_Color &colour)  :
-		labelText(text), labelFont(font), textColour(colour)
+	SDL_Rect position;
+
+	UILabel(int xpos, int ypos, const char* text, const char* font, SDL_Color &colour, bool centered = false)  :
+		labelText(text), labelFont(font), textColour(colour), centered(centered)
 	{
 		position.x = xpos;
 		position.y = ypos;
@@ -25,18 +27,23 @@ public:
 
 	void setLabelText(const char* lt) {
 		labelText = lt;
-		SDL_Surface* surf = TTF_RenderText_Blended(Game::assets->getFont(labelFont), labelText, textColour);
-		labelTexture = SDL_CreateTextureFromSurface(Game::renderer, surf);
+		
+		SDL_Surface* surf = TTF_RenderText_Blended(Game::currentWindow->_assets->getFont(labelFont), labelText, textColour);
+		labelTexture = SDL_CreateTextureFromSurface(Game::currentWindow->_renderer, surf);
 		cleanup(surf);
 
 		SDL_QueryTexture(labelTexture, nullptr, nullptr, &position.w, &position.h);
+
+		if (centered) {
+			position.x = Constants::SCREEN_WIDTH / 2 - position.w / 2;
+		}
 	}
 
 	void draw() override {
-		SDL_RenderCopy(Game::renderer, labelTexture, nullptr, &position);
+		SDL_RenderCopy(Game::currentWindow->_renderer, labelTexture, nullptr, &position);
 	}
 private:
-	SDL_Rect position;
+	bool centered;
 	const char* labelText;
 	const char* labelFont;
 	SDL_Color textColour;

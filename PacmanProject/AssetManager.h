@@ -1,9 +1,9 @@
 #pragma once
 
 #include <map>
-#include "ECS.h"
 #include "SDL.h"
 #include "SDL_ttf.h"
+#include "Constants.h"
 #include "SoundEffect.h"
 
 class AssetManager
@@ -12,7 +12,7 @@ public:
 	AssetManager() = default;
 	~AssetManager();
 
-	void addFont(const char* id, const char* path, int fontSize);
+	void addFont(const char* id, const char* path, int fontSize = Constants::FONT_SIZE);
 	TTF_Font* getFont(const char* id);
 
 	void addSoundEffect(const char* id, const char* path);

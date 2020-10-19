@@ -6,7 +6,7 @@
 * @param fileName The output stream to write the message to
 */
 SDL_Texture* TextureManager::LoadTexture(const char* fileName) {
-	SDL_Texture* text = IMG_LoadTexture(Game::renderer, fileName);
+	SDL_Texture* text = IMG_LoadTexture(Game::currentWindow->_renderer, fileName);
 	if (text == nullptr) {
 		TextureManager::LogSDLError(std::cout, "LoadTexture");
 	}
@@ -21,7 +21,7 @@ SDL_Texture* TextureManager::LoadTexture(const char* fileName) {
 * @param flip The error message to write, format will be msg error: SDL_GetError()
 */
 void TextureManager::Draw(SDL_Texture* tex, SDL_Rect src, SDL_Rect dst, double angle, SDL_RendererFlip flip) {
-	SDL_RenderCopyEx(Game::renderer, tex, &src, &dst, angle, NULL, flip);
+	SDL_RenderCopyEx(Game::currentWindow->_renderer, tex, &src, &dst, angle, NULL, flip);
 }
 
 
