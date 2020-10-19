@@ -38,9 +38,9 @@ bool MenuWindow::_init()
 		Window::_assets->addFont(Constants::MENU_TITLE_FONT_ID, Constants::MENU_TITLE_FONT_FILE, Constants::MENU_TITLE_FONT_SIZE);
 	}
 	
-	SoundEffect* beginning = Window::_assets->getSoundEffect(Constants::BEGINNING_ID);
+	SoundEffect* beginning = Window::_assets->getSoundEffect(Constants::INTERMISSION_ID);
 	if (beginning == nullptr) {
-		Window::_assets->addSoundEffect(Constants::BEGINNING_ID, Constants::BEGINNING_FILE);
+		Window::_assets->addSoundEffect(Constants::INTERMISSION_ID, Constants::INTERMISSION_FILE);
 	}
 
 	int titleLabelX = Constants::SCREEN_WIDTH / 2;
@@ -71,29 +71,31 @@ bool MenuWindow::_init()
 	menuPacman.addComponent<SpriteComponent>("pacman.png", true);
 	menuPacman.addGroup(MenuWindow::groupPlayers);
 
+	int distanceFromPacman = 100;
+
 	// GHOST
-	int cyanGhostInitPosX = Constants::SCREEN_WIDTH + Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT * 2;
+	int cyanGhostInitPosX = Constants::SCREEN_WIDTH + Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT * 2 + distanceFromPacman;
 	int cyanGhostInitPosY = Constants::ENTITY_SCALE * Constants::ENTITY_HEIGHT;
 	menuCyanGhost.addComponent<TransformComponent>(cyanGhostInitPosX, cyanGhostInitPosY, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	menuCyanGhost.addComponent<GhostSpriteComponent>("cyan_ghost.png", true);
 	menuCyanGhost.getComponent<GhostSpriteComponent>().scaredBeginAnimationSeconds = INF;
 	menuCyanGhost.addGroup(MenuWindow::groupEnemies);
 
-	int orangeGhostInitPosX = Constants::SCREEN_WIDTH +  Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT * 3 + 5;
+	int orangeGhostInitPosX = Constants::SCREEN_WIDTH +  Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT * 3 + 5 + distanceFromPacman;
 	int orangeGhostInitPosY = Constants::ENTITY_SCALE * Constants::ENTITY_HEIGHT;
 	menuOrangeGhost.addComponent<TransformComponent>(orangeGhostInitPosX, orangeGhostInitPosY, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	menuOrangeGhost.addComponent<GhostSpriteComponent>("orange_ghost.png", true);
 	menuOrangeGhost.getComponent<GhostSpriteComponent>().scaredBeginAnimationSeconds = INF;
 	menuOrangeGhost.addGroup(MenuWindow::groupEnemies);
 
-	int pinkGhostInitPosX = Constants::SCREEN_WIDTH +  Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT * 4 + 10;
+	int pinkGhostInitPosX = Constants::SCREEN_WIDTH +  Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT * 4 + 10 + distanceFromPacman;
 	int pinkGhostInitPosY = Constants::ENTITY_SCALE * Constants::ENTITY_HEIGHT;
 	menuPinkGhost.addComponent<TransformComponent>(pinkGhostInitPosX, pinkGhostInitPosY, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	menuPinkGhost.addComponent<GhostSpriteComponent>("pink_ghost.png", true);
 	menuPinkGhost.getComponent<GhostSpriteComponent>().scaredBeginAnimationSeconds = INF;
 	menuPinkGhost.addGroup(MenuWindow::groupEnemies);
 
-	int redGhostInitPosX = Constants::SCREEN_WIDTH + Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT * 5 + 15;
+	int redGhostInitPosX = Constants::SCREEN_WIDTH + Constants::ENTITY_SCALE * Constants::ENTITY_WIDHT * 5 + 15 + distanceFromPacman;
 	int redGhostInitPosY = Constants::ENTITY_SCALE * Constants::ENTITY_HEIGHT;
 	menuRedGhost.addComponent<TransformComponent>(redGhostInitPosX, redGhostInitPosY, Constants::ENTITY_HEIGHT, Constants::ENTITY_WIDHT, Constants::ENTITY_SCALE);
 	menuRedGhost.addComponent<GhostSpriteComponent>("red_ghost.png", true);
@@ -101,6 +103,8 @@ bool MenuWindow::_init()
 	menuRedGhost.addGroup(MenuWindow::groupEnemies);
 
 	_isRunning = true;
+
+	_assets->getSoundEffect(Constants::INTERMISSION_ID)->play(-1);
 
 	return true;
 }

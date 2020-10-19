@@ -24,5 +24,6 @@ void AssetManager::addSoundEffect(const char* id, const char* path)
 
 SoundEffect* AssetManager::getSoundEffect(const char* id)
 {
-    return sound_effects[id];
+    if (sound_effects.find(id) != sound_effects.end()) return sound_effects[id];
+    return nullptr;
 }

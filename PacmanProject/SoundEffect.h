@@ -11,7 +11,7 @@ public:
 	SoundEffect(const char* path);
 	~SoundEffect();
 
-	void play();
+	void play(int loops = 0);
 
 private:
 	Mix_Chunk* sound;
